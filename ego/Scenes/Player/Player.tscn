@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://6o3tcdqrf4og"]
+
+[ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_ydrnv"]
+[ext_resource type="Texture2D" uid="uid://tadd4hbrfjoc" path="res://Assets/Weapons/Akimbo/Pistols.png" id="2_erirs"]
+[ext_resource type="Texture2D" uid="uid://2jswwfkck818" path="res://Assets/Player Sprites Base/Idle/Idle.png" id="2_erk5f"]
+[ext_resource type="Texture2D" uid="uid://oyqpjf48cooq" path="res://Assets/Player Sprites Base/Akimbo/Akimbo.png" id="2_uelae"]
+[ext_resource type="Texture2D" uid="uid://oio1iy5e2hfn" path="res://Assets/Player Sprites Base/Head.png" id="5_bxqru"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pb2pk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_erirs")
+}],
+"loop": true,
+"name": &"Gun",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5vvl4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uelae")
+}],
+"loop": true,
+"name": &"Akimbo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_erk5f")
+}],
+"loop": false,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ymik2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_bxqru")
+}],
+"loop": true,
+"name": &"Head",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8it3u"]
+radius = 11.0
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_ydrnv")
+
+[node name="Gun" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_pb2pk")
+animation = &"Gun"
+offset = Vector2(12, 0)
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_5vvl4")
+animation = &"Akimbo"
+offset = Vector2(12, 0)
+
+[node name="Head" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ymik2")
+animation = &"Head"
+offset = Vector2(12, 0)
+
+[node name="Interaction Area" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8it3u")
+
+[node name="Camera" type="Camera2D" parent="."]
+process_callback = 0
+drag_left_margin = 0.02
+drag_top_margin = 0.02
+drag_right_margin = 0.02
+drag_bottom_margin = 0.02
