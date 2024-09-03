@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://7j6gpfp3v3uc"]
+[gd_scene load_steps=5 format=3 uid="uid://7j6gpfp3v3uc"]
 
 [ext_resource type="Script" path="res://Scenes/projectile.gd" id="1_7rn68"]
 [ext_resource type="Texture2D" uid="uid://bomwkpt6tqodg" path="res://Assets/Weapons/Projectiles/Bullet.png" id="2_bnnid"]
+[ext_resource type="Script" path="res://Scenes/hit.gd" id="3_qlr8m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rnsnr"]
 size = Vector2(12, 6)
@@ -20,9 +21,19 @@ shape = SubResource("RectangleShape2D_rnsnr")
 scale = Vector2(2, 2)
 texture = ExtResource("2_bnnid")
 
-[node name="Hit" type="Area2D" parent="."]
+[node name="Hit Wall" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 17
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hit"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hit Wall"]
+shape = SubResource("RectangleShape2D_rnsnr")
+
+[node name="Hit Enemy" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_qlr8m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hit Enemy"]
 shape = SubResource("RectangleShape2D_rnsnr")
 
 [node name="Lifespan" type="Timer" parent="."]
@@ -30,5 +41,5 @@ wait_time = 3.0
 one_shot = true
 autostart = true
 
-[connection signal="body_entered" from="Hit" to="." method="_on_hit_body_entered"]
+[connection signal="body_entered" from="Hit Wall" to="." method="_on_hit_body_entered"]
 [connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_ydrnv"]
 [ext_resource type="Texture2D" uid="uid://tadd4hbrfjoc" path="res://Assets/Weapons/Akimbo/Pistols.png" id="2_erirs"]
 [ext_resource type="Texture2D" uid="uid://2jswwfkck818" path="res://Assets/Player Sprites Base/Idle/Idle.png" id="2_erk5f"]
-[ext_resource type="Script" path="res://Resources/Weapons/Primary Weapons/Primary Weapon.gd" id="2_jrb4t"]
+[ext_resource type="Script" path="res://Scenes/Player/Resources/Primary Weapon.gd" id="2_jrb4t"]
 [ext_resource type="Texture2D" uid="uid://oyqpjf48cooq" path="res://Assets/Player Sprites Base/Akimbo/Akimbo.png" id="2_uelae"]
 [ext_resource type="Texture2D" uid="uid://dsmrededslur2" path="res://Assets/Player Sprites Base/One Handed/OneHanded.png" id="5_bexf8"]
 [ext_resource type="Texture2D" uid="uid://oio1iy5e2hfn" path="res://Assets/Player Sprites Base/Head.png" id="5_bxqru"]
@@ -18,8 +18,6 @@ fire_rate = 0.5
 magizine = true
 reload_speed = 2.0
 recoil_severity = 0
-projectile_speed = 1200
-projectile_speed_falloff = 0
 max_distance = 2.0
 y_offset = 40
 pellet_count = 0
