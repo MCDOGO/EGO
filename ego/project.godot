@@ -68,6 +68,17 @@ Throwable={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Wall"
+2d_physics/layer_2="Obstacle"
+2d_physics/layer_3="Player Damage"
+2d_physics/layer_4="Enemy Damage"
+2d_physics/layer_5="Player Hurt"
+2d_physics/layer_6="Enemy Hurt"
+2d_physics/layer_7="Enemy Head"
+2d_physics/layer_8="Hazard"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

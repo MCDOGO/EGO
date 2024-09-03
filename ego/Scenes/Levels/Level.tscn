@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://8sf3wii8jgio"]
+[gd_scene load_steps=7 format=4 uid="uid://8sf3wii8jgio"]
 
+[ext_resource type="Script" path="res://Scenes/Levels/level.gd" id="1_ncuqe"]
 [ext_resource type="PackedScene" uid="uid://6o3tcdqrf4og" path="res://Scenes/Player/Player.tscn" id="1_omyfk"]
 [ext_resource type="Texture2D" uid="uid://cv16lto0fdic2" path="res://Assets/Tile Map/Debug.png" id="2_haebh"]
+[ext_resource type="PackedScene" uid="uid://dqtu4f5uqwisr" path="res://Scenes/Enemy/EnemyTest.tscn" id="3_rckv6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gd1i1"]
 texture = ExtResource("2_haebh")
@@ -16,12 +18,19 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_gd1i1")
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_ncuqe")
 
 [node name="Players" type="Node" parent="."]
 
 [node name="Player" parent="Players" instance=ExtResource("1_omyfk")]
 
+[node name="Enemy" type="Node" parent="."]
+
+[node name="EnemyTest" parent="Enemy" instance=ExtResource("3_rckv6")]
+position = Vector2(274, 13)
+
 [node name="TileMap" type="TileMap" parent="."]
+texture_repeat = 1
 tile_set = SubResource("TileSet_26mvi")
 format = 2
 layer_0/tile_data = PackedInt32Array(-65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -196606, 0, 0, -262142, 0, 0, -327678, 0, 0, -393214, 0, 0, -393210, 0, 0, -327674, 0, 0, -262138, 0, 0, -196602, 0, 0, -131066, 0, 0, -131065, 0, 0, -131064, 0, 0, -131063, 0, 0, -131062, 0, 0, -65526, 0, 0, 10, 0, 0, 65546, 0, 0, 131082, 0, 0, 196618, 0, 0, 262154, 0, 0, 327690, 0, 0, 327689, 0, 0, 327688, 0, 0, 327687, 0, 0, 327686, 0, 0, 327685, 0, 0, 327684, 0, 0, 327683, 0, 0, 327682, 0, 0, 327681, 0, 0, 327680, 0, 0, 393215, 0, 0, 393214, 0, 0, 327678, 0, 0, 262142, 0, 0, 196606, 0, 0, 131070, 0, 0, 65534, 0, 0, -2, 0, 0)

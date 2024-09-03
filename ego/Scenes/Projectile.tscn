@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://7j6gpfp3v3uc"]
+
+[ext_resource type="Script" path="res://Scenes/projectile.gd" id="1_7rn68"]
+[ext_resource type="Texture2D" uid="uid://bomwkpt6tqodg" path="res://Assets/Weapons/Projectiles/Bullet.png" id="2_bnnid"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rnsnr"]
+size = Vector2(12, 6)
+
+[node name="Projectile" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_7rn68")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rnsnr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["Projectile"]]
+scale = Vector2(2, 2)
+texture = ExtResource("2_bnnid")
+
+[node name="Hit" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hit"]
+shape = SubResource("RectangleShape2D_rnsnr")
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="Hit" to="." method="_on_hit_body_entered"]
+[connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]
