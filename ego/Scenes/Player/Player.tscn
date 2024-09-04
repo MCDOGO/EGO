@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://oyqpjf48cooq" path="res://Assets/Player Sprites Base/Akimbo/Akimbo.png" id="2_uelae"]
 [ext_resource type="Texture2D" uid="uid://dsmrededslur2" path="res://Assets/Player Sprites Base/One Handed/OneHanded.png" id="5_bexf8"]
 [ext_resource type="Texture2D" uid="uid://oio1iy5e2hfn" path="res://Assets/Player Sprites Base/Head.png" id="5_bxqru"]
-[ext_resource type="Texture2D" uid="uid://dr7xb8xuwiw43" path="res://Assets/Player Sprites Base/Two handed/TwoHanded.png" id="6_knmqg"]
+[ext_resource type="Texture2D" uid="uid://dr7xb8xuwiw43" path="res://Assets/Player Sprites Base/Two Handed/TwoHanded.png" id="6_knmqg"]
 
 [sub_resource type="Resource" id="Resource_rtrvo"]
 script = ExtResource("2_jrb4t")
