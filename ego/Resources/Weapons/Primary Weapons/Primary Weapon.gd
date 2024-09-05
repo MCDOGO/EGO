@@ -10,11 +10,16 @@ class_name Primary_Weapon
 @export var fire_rate: float ## Time interval between gun shot
 @export var magizine: bool ## Magazine: true, By Shell: false
 @export var reload_speed: float ## Time for reload to happen
+
 @export var recoil_severity: int ## TBD
+
 @export var projectile_speed: int = 1200
 @export var projectile_speed_falloff: int = 0 ## Probably just keep at 0 for now
 @export var max_distance: float ## In time
+
 @export var y_offset: int = 20 ## How far to offset the weapon so the projectiles come out of the tip of the gun
+
+@export var explossive: bool = false
 
 @export_group("Weapon Type Based")
 @export_subgroup("Shotgun")
@@ -23,3 +28,9 @@ class_name Primary_Weapon
 
 @export_subgroup("Akimbo")
 @export var x_offset: int = 0
+
+@export_subgroup("Explossive")
+var explossive_damage: int
+var explossive_radius: int 
+var explossive_duration: float ## Time
+var explossive_smoke: bool = false

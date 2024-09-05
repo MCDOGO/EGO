@@ -22,6 +22,7 @@ projectile_speed = 1200
 projectile_speed_falloff = 0
 max_distance = 2.0
 y_offset = 40
+explossive = false
 pellet_count = 0
 spread = 0
 x_offset = 0
@@ -124,6 +125,8 @@ offset = Vector2(12, 0)
 shape = SubResource("CircleShape2D_8it3u")
 
 [node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_4uopn")

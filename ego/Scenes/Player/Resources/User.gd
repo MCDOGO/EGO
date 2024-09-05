@@ -2,6 +2,11 @@ extends Resource
 
 class_name User
 
+## Base stats
+@export var max_health: int = 100
+@export var speed: int = 300
+
+
 ## Weaponry
 @export var primary_weapon: Primary_Weapon
 @export var melee_weapon: Melee_Weapon
