@@ -22,3 +22,8 @@ class_name Weapon_Parent
 	## - Poisoned: Armor reduction during duration
 @export var status_damage: int 
 @export var status_duration: float
+
+@export_group("Enemy Values")
+## tp = to player
+@export var min_distance_tp : int = 400 ## Distance until the enemy will comfortably stay still and fire (maybe strafe if desired)
+@export var max_distance_tp : int = 300 ## Distance until the enemy will want to leave

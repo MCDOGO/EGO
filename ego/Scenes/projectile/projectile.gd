@@ -7,6 +7,7 @@ var playerID := 0
 var dir : float
 var spawnPos : Vector2
 var spawnRot : float
+var playerObj: CharacterBody2D
 
 var offsetMain : int
 var offsetSecondary : int = 0

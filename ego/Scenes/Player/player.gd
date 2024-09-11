@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 ## Constant/Final Variables
 const ballin = true
@@ -10,7 +11,7 @@ const ballin = true
 
 ## External Nodes and Scenes
 @onready var main = get_tree().get_root().get_node(".")
-@onready var projectile = load("res://Scenes/Projectile.tscn")
+@onready var projectile = load("res://Scenes/projectile/Projectile.tscn")
 
 ## Objects and Exports
 @export var player: User
@@ -20,6 +21,7 @@ const ballin = true
 var playerSimpleID = 0 ## For simple checks to see if you are the proper user
 
 ## Variables
+var priority := 0
 var SPEED = 300.0 ## Shouldn't be changed after being set
 
 ## Player Based Stats
@@ -158,6 +160,7 @@ func reload():
 	else:
 		heavyAmmoReserves+=heavyAmmo
 	reloadSpeed.wait_time = active_weapon.reload_speed
+	SignalBus.emit("player_reloading", active_weapon.reload_speed)
 	reloadSpeed.start()
 
 
@@ -167,6 +170,7 @@ func create_projectile():
 	instance.dir = rotation
 	instance.spawnPos = global_position
 	instance.spawnRot = global_rotation
+	instance.playerObj = self
 	offsetSwap = !offsetSwap
 	
 	## Based on weapon

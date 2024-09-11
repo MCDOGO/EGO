@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://oyqpjf48cooq" path="res://Assets/Player Sprites Base/Akimbo/Akimbo.png" id="2_uelae"]
 [ext_resource type="Texture2D" uid="uid://dsmrededslur2" path="res://Assets/Player Sprites Base/One Handed/OneHanded.png" id="5_bexf8"]
 [ext_resource type="Texture2D" uid="uid://oio1iy5e2hfn" path="res://Assets/Player Sprites Base/Head.png" id="5_bxqru"]
-[ext_resource type="Texture2D" uid="uid://dr7xb8xuwiw43" path="res://Assets/Player Sprites Base/Two Handed/TwoHanded.png" id="6_knmqg"]
+[ext_resource type="Texture2D" uid="uid://dr7xb8xuwiw43" path="res://Assets/Player Sprites Base/Two Handed-LAPTOP-CRO42JVH/TwoHanded.png" id="6_knmqg"]
 
 [sub_resource type="Resource" id="Resource_rtrvo"]
 script = ExtResource("2_jrb4t")
@@ -20,7 +20,7 @@ reload_speed = 2.0
 recoil_severity = 0
 projectile_speed = 1200
 projectile_speed_falloff = 0
-max_distance = 2.0
+max_distance = 0.0
 y_offset = 40
 explossive = false
 pellet_count = 0
@@ -35,6 +35,8 @@ status_chance = 0
 status = 0
 status_damage = 0
 status_duration = 0.0
+min_distance_tp = 400
+max_distance_tp = 300
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5vvl4"]
 animations = [{
@@ -126,7 +128,7 @@ shape = SubResource("CircleShape2D_8it3u")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_4uopn")

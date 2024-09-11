@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Enemy_Behavior" load_steps=2 format=3 uid="uid://dxpufh5jrea2u"]
+
+[ext_resource type="Script" path="res://Resources/Behavioral/Enemy_Behavior.gd" id="1_cfn3r"]
+
+[resource]
+script = ExtResource("1_cfn3r")
+min_pathfind_player_aggression = 50
+max_pathfind_player_aggression = 90
+panic_severity = 3
+max_hazard = 5
+being_shot_at = 30
+taking_damage = 50
+in_smoke = 20
+burning = 100
+on_zapped = 10
+poisoned = 10
+in_grenade_radius = 50
+hazard_max = 50
+player = 1
+high_danger_player = 3
+grenade_range = 7
+grenade_effect = 5
