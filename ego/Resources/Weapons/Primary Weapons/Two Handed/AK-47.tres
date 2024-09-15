@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="Primary_Weapon" load_steps=2 format=3 uid="uid://ds1ayi6dp0eiv"]
+
+[ext_resource type="Script" path="res://Resources/Weapons/Primary Weapons/Primary Weapon.gd" id="1_insnd"]
+
+[resource]
+script = ExtResource("1_insnd")
+weapon_type = 2
+max_ammo = 20
+fire_mode = 0
+fire_rate = 0.1
+magizine = true
+reload_speed = 5.0
+recoil_severity = 0
+projectile_speed = 1200
+projectile_speed_falloff = 0
+max_distance = 5.0
+y_offset = 40
+explossive = false
+pellet_count = 0
+spread = 0
+x_offset = 0
+name = "AK-47"
+sprite = "res://Assets/Weapons/Two Handed/AK-47.png"
+damage = 10
+crit_chance = 0
+crit_multiplier = 0.0
+status_chance = 0
+status = 0
+status_damage = 0
+status_duration = 0.0
+min_distance_tp = 400
+max_distance_tp = 300

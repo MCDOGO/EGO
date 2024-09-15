@@ -1,42 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://6o3tcdqrf4og"]
+[gd_scene load_steps=13 format=3 uid="uid://6o3tcdqrf4og"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_ydrnv"]
+[ext_resource type="Resource" uid="uid://cxltx6ibomfma" path="res://Scenes/Player/Resources/DebugUser.tres" id="2_dp25r"]
 [ext_resource type="Texture2D" uid="uid://tadd4hbrfjoc" path="res://Assets/Weapons/Akimbo/Pistols.png" id="2_erirs"]
 [ext_resource type="Texture2D" uid="uid://2jswwfkck818" path="res://Assets/Player Sprites Base/Idle/Idle.png" id="2_erk5f"]
-[ext_resource type="Script" path="res://Resources/Weapons/Primary Weapons/Primary Weapon.gd" id="2_jrb4t"]
 [ext_resource type="Texture2D" uid="uid://oyqpjf48cooq" path="res://Assets/Player Sprites Base/Akimbo/Akimbo.png" id="2_uelae"]
 [ext_resource type="Texture2D" uid="uid://dsmrededslur2" path="res://Assets/Player Sprites Base/One Handed/OneHanded.png" id="5_bexf8"]
 [ext_resource type="Texture2D" uid="uid://oio1iy5e2hfn" path="res://Assets/Player Sprites Base/Head.png" id="5_bxqru"]
 [ext_resource type="Texture2D" uid="uid://dr7xb8xuwiw43" path="res://Assets/Player Sprites Base/Two Handed-LAPTOP-CRO42JVH/TwoHanded.png" id="6_knmqg"]
-
-[sub_resource type="Resource" id="Resource_rtrvo"]
-script = ExtResource("2_jrb4t")
-weapon_type = 0
-max_ammo = 6
-fire_mode = 4
-fire_rate = 0.5
-magizine = true
-reload_speed = 2.0
-recoil_severity = 0
-projectile_speed = 1200
-projectile_speed_falloff = 0
-max_distance = 0.0
-y_offset = 40
-explossive = false
-pellet_count = 0
-spread = 0
-x_offset = 0
-name = "Pistol"
-sprite = "res://Assets/Weapons/Single Handed/Revolver.png"
-damage = 10
-crit_chance = 30
-crit_multiplier = 2.0
-status_chance = 0
-status = 0
-status_damage = 0
-status_duration = 0.0
-min_distance_tp = 400
-max_distance_tp = 300
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5vvl4"]
 animations = [{
@@ -104,7 +75,7 @@ size = Vector2(16, 32)
 collision_layer = 0
 motion_mode = 1
 script = ExtResource("1_ydrnv")
-weaponOveride = SubResource("Resource_rtrvo")
+player = ExtResource("2_dp25r")
 
 [node name="Weapon" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
@@ -151,3 +122,5 @@ one_shot = true
 
 [node name="Swinging Speed" type="Timer" parent="Timers"]
 one_shot = true
+
+[connection signal="timeout" from="Timers/Reload Speed" to="." method="_on_reload_speed_timeout"]

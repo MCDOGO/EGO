@@ -48,6 +48,9 @@ script = ExtResource("1_ncuqe")
 [node name="EnemyTest" parent="Enemy" instance=ExtResource("3_rckv6")]
 position = Vector2(274, 13)
 
+[node name="EnemyTest2" parent="Enemy" instance=ExtResource("3_rckv6")]
+position = Vector2(270, -477)
+
 [node name="TileMap" type="TileMap" parent="."]
 texture_repeat = 1
 tile_set = SubResource("TileSet_26mvi")

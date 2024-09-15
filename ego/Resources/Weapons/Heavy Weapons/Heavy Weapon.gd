@@ -1,4 +1,4 @@
-extends Weapon_Parent
+extends Weapon_Gun
 
 class_name Heavy_Weapon
 
@@ -13,14 +13,14 @@ class_name Heavy_Weapon
 @export_group("Gun")
 @export_enum("FULL_AUTO:0", "SEMI_AUTO:1", "BURST:2", "SINGLE:4", "SHOTGUN:8") var fire_mode: int ## Just convenient
 @export var fire_rate: float ## Time interval between gun shot
-@export var magizine: bool ## Magazine: true, By Shell: false
+@export var magizine: bool = true ## Magazine: true, By Shell: false
 @export var reload_speed: float ## Time for reload to happen
 
 @export var recoil_severity: int ## TBD
 
 @export var projectile_speed: int = 1200
 @export var projectile_speed_falloff: int = 0 ## Probably just keep at 0 for now
-@export var max_distance: float ## In time
+@export var max_distance: float = 5 ## In time
 
 @export var y_offset: int = 20 ## How far to offset the weapon so the projectiles come out of the tip of the gun
 

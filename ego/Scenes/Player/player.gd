@@ -18,11 +18,13 @@ const ballin = true
 @export var weaponOveride: Primary_Weapon
 
 ## Multiplayer Based
-var playerSimpleID = 0 ## For simple checks to see if you are the proper user
+@export var playerSimpleID = 0 ## For simple checks to see if you are the proper user
 
 ## Variables
 var priority := 0
 var SPEED = 300.0 ## Shouldn't be changed after being set
+
+var reloadCancel = false
 
 ## Player Based Stats
 	## Base Stats
@@ -58,7 +60,6 @@ var health: int
 func _ready():
 	## Signals
 	SignalBus.enemy_damaged.connect(enemy_hurt)
-	reloadSpeed.timeout.connect(on_reload_speed_timeout)
 	## Set Up
 	set_up_player()
 
@@ -87,11 +88,12 @@ func set_up_player():
 		
 		## Heavy Weapon
 		MAXHEAVYAMMO = heavy_weapon.max_ammo
-		#heavyAmmo = player.starting_heavy_ammo
+		heavyAmmo = MAXHEAVYAMMO # Set to 0 or make new variable when no debug
 		MAXHEAVYAMMORESERVES = heavy_weapon.max_reserves
+		heavyAmmoReserves = MAXHEAVYAMMORESERVES # Always set to 0, only for debug
 		
 		## Throwable
-		MAXTHROWABLES = throwable_weapon.max_ammo
+		MAXTHROWABLES = throwable_weapon.max_throwables
 		#throwables = player.starting_throwables
 		
 		## Player
@@ -99,6 +101,7 @@ func set_up_player():
 		AGI = 0
 		LUK = 0
 		
+		weapon_swap(primary_weapon)
 	else:
 		print("User Null")
 
@@ -110,15 +113,37 @@ func _physics_process(_delta):
 	velocity = direction * SPEED
 	
 	## Checks if you can fire main weapon
-	if(Input.is_action_pressed("Fire") && fireRateRefresh.is_stopped() && reloadSpeed.is_stopped()):
-		if(weaponOveride == null):
-			weapon_swap(active_weapon)
-		attack(true)
-		print(primaryAmmo)
-	elif(Input.is_action_pressed("Melee")):
-		pass
+	if((true && Input.is_action_pressed("Fire")) && fireRateRefresh.is_stopped() && reloadSpeed.is_stopped()): 
+		## Make it so it detects auto or not auto
+		if(active_weapon is Throwable_Weapon):
+			attack(false)
+		else:
+			attack(true)
+	elif(false && Input.is_action_pressed("Melee")):
+		if(active_weapon is Throwable_Weapon):
+			attack(false)
+		else:
+			attack(false)
 		#weapon_swap(Melee_Weapon)
 		#attack(false)
+	elif(Input.is_action_just_pressed("Reload") && reloadSpeed.is_stopped()):
+		if(active_weapon is Primary_Weapon && (primaryAmmo != MAXPRIMARYAMMO)):
+			reload()
+		elif(active_weapon is Heavy_Weapon && (heavyAmmo != MAXHEAVYAMMO)):
+			reload()
+	elif(Input.is_action_pressed("Throwable")):
+		if(!active_weapon is Throwable_Weapon):
+			weapon_swap(throwable_weapon)
+		else:
+			weapon_swap(primary_weapon)
+	elif(Input.is_action_just_pressed("Swap Gun")):
+		if(!reloadSpeed.is_stopped()):
+			reloadCancel = true
+			reloadSpeed.stop()
+		if(!active_weapon is Heavy_Weapon):
+			weapon_swap(heavy_weapon)
+		else:
+			weapon_swap(primary_weapon)
 	
 	## Makes you look at cursor
 	look_at(get_global_mouse_position())
@@ -139,11 +164,9 @@ func attack(shooting:bool):
 				reload()
 		else:
 			if(heavyAmmo > 0):
-				if(heavyAmmoReserves > 0):
-					heavyAmmo -= 1
-					create_projectile()
-				else:
-					weapon_swap(primary_weapon)
+				heavyAmmo -= 1
+				fireRateRefresh.start()
+				create_projectile()
 			else:
 				if(!heavyAmmoReserves > 0):
 					weapon_swap(primary_weapon)
@@ -155,16 +178,17 @@ func attack(shooting:bool):
 var offsetSwap = false
 
 func reload():
-	if(active_weapon is Primary_Weapon):
-		reloadSpeed.wait_time = active_weapon.reload_speed
-	else:
-		heavyAmmoReserves+=heavyAmmo
 	reloadSpeed.wait_time = active_weapon.reload_speed
-	SignalBus.emit("player_reloading", active_weapon.reload_speed)
 	reloadSpeed.start()
+	if(active_weapon is Heavy_Weapon):
+		heavyAmmoReserves+=heavyAmmo
+		heavyAmmo = 0
+	else:
+		primaryAmmo = 0
+	SignalBus.player_reloading.emit(active_weapon.reload_speed)
 
-
-func create_projectile():
+func set_projectile():
+	
 	## Standard Procedure
 	var instance = projectile.instantiate()
 	instance.dir = rotation
@@ -172,15 +196,35 @@ func create_projectile():
 	instance.spawnRot = global_rotation
 	instance.playerObj = self
 	offsetSwap = !offsetSwap
+	#instance.attackID = attackID
 	
 	## Based on weapon
 	instance.SPEED = active_weapon.projectile_speed
 	instance.offsetMain = active_weapon.y_offset
 	instance.offsetSecondary = active_weapon.x_offset * (1 if offsetSwap else -1)
-	instance.damage = active_weapon.damage
+	instance.damage = active_weapon.damage 
 	
+	## Luck based changes
+	if(active_weapon.fire_mode != 8):
+		pass
+	
+	return instance
+
+
+var attackID = 0
+
+func create_projectile():
 	## Creating the projectile
-	main.add_child.call_deferred(instance)
+	if(active_weapon.fire_mode == 8):
+		for i in active_weapon.pellet_count:
+			var instance = set_projectile()
+			instance.damage /= active_weapon.pellet_count
+			instance.dir += deg_to_rad(randi_range(active_weapon.spread*-1,active_weapon.spread))
+			main.add_child.call_deferred(instance)
+	else:
+		var instance = set_projectile()
+		main.add_child.call_deferred(instance)
+	attackID += 1
 
 
 ## Updates stats and animations for new active weapon
@@ -212,18 +256,32 @@ func weapon_swap(weapon: Weapon_Parent):
 ## Signals
 func enemy_hurt(player: int, inSmoke: bool, weapon: Resource, conditions: int):
 	if(player == playerSimpleID):
-		print("Yay")
+		pass
 
-func on_reload_speed_timeout():
-	print("Made it here")
-	if(active_weapon is Primary_Weapon):
-		if(!active_weapon.fire_mode == 8):
-			primaryAmmo = MAXPRIMARYAMMO
-		else: ## Shell reloading
-			pass
+func _on_reload_speed_timeout():
+	if(!reloadCancel):
+		if(active_weapon is Primary_Weapon):
+			if(active_weapon.magizine):
+				primaryAmmo = MAXPRIMARYAMMO
+			else: ## Shell reloading
+				if(primaryAmmo+1 == MAXPRIMARYAMMO):
+					primaryAmmo = MAXPRIMARYAMMO
+				else:
+					primaryAmmo+=1
+					reloadSpeed.start()
+					SignalBus.player_reloading.emit(active_weapon.reload_speed)
+		else:
+			if(active_weapon.magizine):
+				heavyAmmo = clamp(MAXHEAVYAMMORESERVES, 0, MAXHEAVYAMMO)
+				heavyAmmoReserves -= heavyAmmo
+			else: ## Shell reloading
+				if(heavyAmmo+1 == MAXHEAVYAMMO):
+					heavyAmmo = MAXHEAVYAMMO
+				else:
+					heavyAmmo+=1
+					heavyAmmoReserves-=1
+					if(heavyAmmoReserves != 0):
+						reloadSpeed.start()
+						SignalBus.player_reloading.emit(active_weapon.reload_speed)
 	else:
-		if(!active_weapon.fire_mode == 8):
-			heavyAmmo = clamp(MAXHEAVYAMMORESERVES, 0, MAXHEAVYAMMO)
-			heavyAmmoReserves -= heavyAmmo
-		else: ## Shell reloading
-			pass
+		reloadCancel = false

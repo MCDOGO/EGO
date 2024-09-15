@@ -10,4 +10,6 @@ extends Node
 ##                                                                 [Burning:1, Stunned:2, Zapped:4, Poisoned:8]
 signal enemy_damaged(player: int, inSmoke: bool, weapon: Resource, conditions: int)
 signal enemy_killed(player: int, inSmoke: bool, weapon: Resource, conditions: int)
+
 signal player_reloading(time: float)
+signal player_reload_cancel()

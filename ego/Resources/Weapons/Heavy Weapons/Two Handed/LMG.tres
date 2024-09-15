@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="Heavy_Weapon" load_steps=2 format=3 uid="uid://c0ndujf04ssjk"]
+
+[ext_resource type="Script" path="res://Resources/Weapons/Heavy Weapons/Heavy Weapon.gd" id="1_p2bvs"]
+
+[resource]
+script = ExtResource("1_p2bvs")
+gun_or_melee = true
+weapon_type = 2
+charge_weapon = false
+max_ammo = 40
+max_reserves = 40
+fire_mode = 0
+fire_rate = 0.2
+magizine = true
+reload_speed = 5.0
+recoil_severity = 0
+projectile_speed = 1500
+projectile_speed_falloff = 0
+max_distance = 5.0
+y_offset = 20
+explossive = false
+pellet_count = 0
+spread = 0
+x_offset = 0
+single_handed = false
+swing_or_stab = false
+speed = 0.0
+recovery = 0.0
+radius = 0
+distance = 0
+attack_length = 0
+attack_width = 0
+projectile = null
+casing = null
+projectileHitBoxSize = Vector2i(12, 6)
+ejectCasingLeft = false
+screenShake = 20
+screenShakeMax = 60
+smokeSeverity = 10
+sparkSeverity = 10
+name = "LMG"
+sprite = "res://Assets/Weapons/Two Handed/LMG.png"
+damage = 10
+crit_chance = 0
+crit_multiplier = 0.0
+status_chance = 0
+status = 0
+status_damage = 0
+status_duration = 0.0
+min_distance_tp = 400
+max_distance_tp = 300

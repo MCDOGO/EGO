@@ -33,7 +33,7 @@ var aggression = 0
 
 @export var behavior: Enemy_Behavior
 var returnToOrigin := false
-var hasLineOfSight := true
+var hasLineOfSight := false
 
 ## Navigation
 @onready var nav_agent := $NavigationAgent2D
@@ -41,13 +41,16 @@ var hasLineOfSight := true
 
 func _ready() -> void:
 	Origin = global_position
-	$Timer.start()
-
 
 var previousAngle := 0
 var tempAngle := 0
 
 func _physics_process(delta):
+	$"Check For Player".position = position
+	
+	for player in targetPlayers:
+		if(player.playerSimpleID == targetPlayerID):
+			targetVector = player.global_position
 	
 	## For pathfinding
 	var dir = to_local(nav_agent.get_next_path_position()).normalized()
@@ -90,15 +93,14 @@ func damage(dmg: int):
 		queue_free()
 
 
-func set_player_vector(playerPos: Vector2):
-	targetVector = playerPos
-
-
-func _on_hurt_box_area_entered(area):
-	$Rotates.look_at(area.playerObj.global_position)
+func _on_hurt_box_area_entered(area: Area2D):
+	if(true): ## Think about current target before turning to look at New target
+		$Rotates.look_at(area.playerObj.global_position)
+	if(targetPlayerIDs.has(area.playerObj.playerSimpleID)):
+		targetPlayerID = area.playerObj.playerSimpleID
 	if(area.is_explode):
 		if($"Timers/Area Damage Tick".is_stopped()):
-			damage(area.explossive_damage)
+			damage(area.explosive_damage) ## Misspelled 'explosive'
 			$"Timers/Area Damage Tick".start()
 	else:
 		damage(area.damage)
@@ -122,10 +124,15 @@ func on_check_for_player_body_exited(body: Node2D) -> void:
 ## If player enters the POV of the enemy
 func _on_site_area_entered(area: Area2D) -> void:
 	if(area.get_parent() is CharacterBody2D):
-		targetPlayerIDs.append(area.get_parent().playerSimpleID)
+		var temp = area.get_parent()
+		targetPlayerID = temp.playerSimpleID
+		targetPlayerIDs.append(temp.playerSimpleID)
+		targetPlayers.append(temp)
 		on_check_for_player_body_exited(area)
 
 ## If player leaves the POV of the enemy
 func _on_site_area_exited(area: Area2D) -> void:
 	if(area.get_parent() is CharacterBody2D):
-		targetPlayerIDs.erase(area.get_parent().playerSimpleID)
+		var temp = area.get_parent()
+		targetPlayerIDs.erase(temp.playerSimpleID)
+		targetPlayers.erase(temp)

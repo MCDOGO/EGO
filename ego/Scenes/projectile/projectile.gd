@@ -16,11 +16,11 @@ var damage: int
 var status_afflicted: int
 var status_damage: int
 
-var explossive: bool = false
-var explossive_damage: int
-var explossive_radius: int 
-var explossive_duration: float ## Time
-var explossive_smoke: bool = false
+var explosive: bool = false
+var explosive_damage: int
+var explosive_radius: int 
+var explosive_duration: float ## Time
+var explosive_smoke: bool = false
 
 var is_explode := false
 
@@ -44,22 +44,22 @@ func _physics_process(_delta):
 
 ## Signals
 func _on_lifespan_timeout():
-	if(explossive):
+	if(explosive):
 		expload()
 	queue_free()
 
 func _on_hit_body_entered(_body):
-	if(explossive):
+	if(explosive):
 		expload()
 	queue_free()
 
 func expload():
 	is_explode = true
 	var temp = CircleShape2D.new()
-	temp.radius = explossive_radius
-	$"Explosive/Explossive Radius/CollisionShape2D".shape = temp
-	$"Explosive/Explossive Lifespan".wait_time = explossive_duration
-	$"Explosive/Explossive Lifespan".start()
+	temp.radius = explosive_radius
+	$"Explosive/Explosive Radius/CollisionShape2D".shape = temp
+	$"Explosive/Explosive Lifespan".wait_time = explosive_duration
+	$"Explosive/Explosive Lifespan".start()
 
 func _on_explossive_lifespan_timeout() -> void:
 	queue_free()

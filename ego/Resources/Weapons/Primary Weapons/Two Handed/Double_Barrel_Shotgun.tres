@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="Primary_Weapon" load_steps=2 format=3 uid="uid://cbvq3cpevo1i2"]
+
+[ext_resource type="Script" path="res://Resources/Weapons/Primary Weapons/Primary Weapon.gd" id="1_5xohq"]
+
+[resource]
+script = ExtResource("1_5xohq")
+weapon_type = 2
+max_ammo = 2
+fire_mode = 8
+fire_rate = 1.0
+magizine = false
+reload_speed = 1.5
+recoil_severity = 0
+projectile_speed = 1200
+projectile_speed_falloff = 0
+max_distance = 1.0
+y_offset = 60
+explossive = false
+pellet_count = 10
+spread = 10
+x_offset = 0
+projectile = null
+casing = null
+projectileHitBoxSize = Vector2i(12, 6)
+ejectCasingLeft = false
+screenShake = 20
+screenShakeMax = 60
+smokeSeverity = 10
+sparkSeverity = 10
+name = "Double Barrel Shotgun"
+sprite = "res://Assets/Weapons/Two Handed/DoubleBarrelShotgun.png"
+damage = 40
+crit_chance = 0
+crit_multiplier = 0.0
+status_chance = 0
+status = 0
+status_damage = 0
+status_duration = 0.0
+min_distance_tp = 400
+max_distance_tp = 300

@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="Primary_Weapon" load_steps=2 format=3 uid="uid://cde3kbixpmkf7"]
+
+[ext_resource type="Script" path="res://Resources/Weapons/Primary Weapons/Primary Weapon.gd" id="1_c7y8i"]
+
+[resource]
+script = ExtResource("1_c7y8i")
+weapon_type = 0
+max_ammo = 6
+fire_mode = 4
+fire_rate = 0.3
+magizine = true
+reload_speed = 1.0
+recoil_severity = 0
+projectile_speed = 1200
+projectile_speed_falloff = 0
+max_distance = 5.0
+y_offset = 40
+explossive = false
+pellet_count = 0
+spread = 0
+x_offset = 0
+name = "Revolver"
+sprite = "res://Assets/Weapons/Single Handed/Revolver.png"
+damage = 20
+crit_chance = 10
+crit_multiplier = 2.0
+status_chance = 0
+status = 0
+status_damage = 0
+status_duration = 0.0
+min_distance_tp = 400
+max_distance_tp = 300

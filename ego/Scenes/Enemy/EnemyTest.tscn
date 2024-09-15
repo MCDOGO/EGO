@@ -54,7 +54,8 @@ size = Vector2(16, 32)
 [sub_resource type="CircleShape2D" id="CircleShape2D_i621h"]
 radius = 11.0
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_b5i5v"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_tq2ys"]
+resource_local_to_scene = true
 
 [node name="EnemyTest" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 0
@@ -102,10 +103,11 @@ shape = SubResource("RectangleShape2D_4gx2d")
 shape = SubResource("CircleShape2D_i621h")
 
 [node name="Check For Player" type="Area2D" parent="."]
+top_level = true
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Check For Player"]
-shape = SubResource("SegmentShape2D_b5i5v")
+shape = SubResource("SegmentShape2D_tq2ys")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
