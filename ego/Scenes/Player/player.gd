@@ -113,7 +113,8 @@ func _physics_process(_delta):
 	velocity = direction * SPEED
 	
 	## Checks if you can fire main weapon
-	if((true && Input.is_action_pressed("Fire")) && fireRateRefresh.is_stopped() && reloadSpeed.is_stopped()): 
+	if((true && Input.is_action_pressed("Fire")) && 
+	fireRateRefresh.is_stopped() && reloadSpeed.is_stopped()): 
 		## Make it so it detects auto or not auto
 		if(active_weapon is Throwable_Weapon):
 			attack(false)
@@ -172,7 +173,7 @@ func attack(shooting:bool):
 					weapon_swap(primary_weapon)
 				else:
 					reload()
-					
+
 
 ## Handles creating projectiles
 var offsetSwap = false
@@ -186,6 +187,7 @@ func reload():
 	else:
 		primaryAmmo = 0
 	SignalBus.player_reloading.emit(active_weapon.reload_speed)
+
 
 func set_projectile():
 	
@@ -236,10 +238,13 @@ func weapon_swap(weapon: Weapon_Parent):
 		match(weapon.weapon_type):
 			0:
 				$Body.play("One Handed")
+				$Weapon.z_index = z_index
 			1:
 				$Body.play("Akimbo")
+				$Weapon.z_index = z_index
 			2:
 				$Body.play("Two Handed")
+				$Weapon.z_index = z_index+1
 	elif(weapon is Melee_Weapon || (weapon is Heavy_Weapon && !weapon.gun_or_melee)):
 		fireRateRefresh.wait_time = active_weapon.recovery
 		swingingSpeed.wait_time = active_weapon.speed
@@ -272,7 +277,7 @@ func _on_reload_speed_timeout():
 					SignalBus.player_reloading.emit(active_weapon.reload_speed)
 		else:
 			if(active_weapon.magizine):
-				heavyAmmo = clamp(MAXHEAVYAMMORESERVES, 0, MAXHEAVYAMMO)
+				heavyAmmo = clamp(heavyAmmoReserves, 0, MAXHEAVYAMMO)
 				heavyAmmoReserves -= heavyAmmo
 			else: ## Shell reloading
 				if(heavyAmmo+1 == MAXHEAVYAMMO):

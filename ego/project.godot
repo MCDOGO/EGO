@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="EGO"
-run/main_scene="res://Scenes/Levels/Level.tscn"
+run/main_scene="res://Scenes/UI/Starting Menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -29,6 +29,16 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
 window/stretch/scale_mode="integer"
 window/canvas_textures/default_texture_filter=0
+
+[file_customization]
+
+folder_colors={
+"res://Assets/": "yellow",
+"res://Resources/": "green",
+"res://Resources/Behavioral/": "purple",
+"res://Scenes/": "red",
+"res://Scripts/": "blue"
+}
 
 [input]
 

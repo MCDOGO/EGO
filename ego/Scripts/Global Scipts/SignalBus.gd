@@ -13,3 +13,5 @@ signal enemy_killed(player: int, inSmoke: bool, weapon: Resource, conditions: in
 
 signal player_reloading(time: float)
 signal player_reload_cancel()
+
+signal closed_lodout() ## Used to send a signal in the start menu

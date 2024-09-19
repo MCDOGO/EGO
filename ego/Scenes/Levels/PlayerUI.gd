@@ -10,7 +10,7 @@ func _ready():
 	ID = 0
 
 
-func _process(delta: float):
+func _process(_delta: float):
 	$ProgressBar.value = 100 * $Timer.time_left/max_time
 	if(player.active_weapon is Heavy_Weapon):
 		$Label.text = str(player.heavyAmmo) + " / " + str(player.MAXHEAVYAMMO) + " | " + str(player.heavyAmmoReserves)

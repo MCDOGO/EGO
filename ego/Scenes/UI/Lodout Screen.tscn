@@ -1,0 +1,138 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7mkagknfurup"]
+
+[ext_resource type="Script" path="res://Scenes/UI/lodout_screen.gd" id="1_m16gx"]
+
+[node name="LodoutScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+script = ExtResource("1_m16gx")
+
+[node name="Close" type="Button" parent="."]
+custom_minimum_size = Vector2(20, 320)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_right = -300.0
+grow_vertical = 2
+text = "C
+l
+o
+s
+e"
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -130.0
+offset_right = 140.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Panel" type="Panel" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(100, 180)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Stats" type="VBoxContainer" parent="Panel/HBoxContainer/Panel"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -76.5
+offset_right = 60.0
+offset_bottom = 76.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Stats" type="Label" parent="Panel/HBoxContainer/Panel/Stats"]
+layout_mode = 2
+text = "HP: #
+Armor: #
+Speed: #
+VIT: #
+AGI: #
+LUK: #"
+
+[node name="Weapons" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Heavy Weapon" type="Button" parent="Panel/HBoxContainer/Weapons"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Heavy"
+
+[node name="Primary Weapon" type="Button" parent="Panel/HBoxContainer/Weapons"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Primary"
+
+[node name="Melee Weapon" type="Button" parent="Panel/HBoxContainer/Weapons"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Melee"
+
+[node name="Equipment" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Armor" type="Button" parent="Panel/HBoxContainer/Equipment"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Armor"
+
+[node name="Throwable Weapon" type="Button" parent="Panel/HBoxContainer/Equipment"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Throwable"
+
+[node name="Skills" type="Button" parent="Panel/HBoxContainer/Equipment"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Skills
+"
+
+[connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Weapons/Heavy Weapon" to="." method="_on_heavy_weapon_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Weapons/Primary Weapon" to="." method="_on_primary_weapon_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Weapons/Melee Weapon" to="." method="_on_melee_weapon_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Equipment/Armor" to="." method="_on_armor_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Equipment/Throwable Weapon" to="." method="_on_throwable_weapon_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Equipment/Skills" to="." method="_on_skills_pressed"]
