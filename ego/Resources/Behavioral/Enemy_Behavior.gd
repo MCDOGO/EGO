@@ -21,6 +21,15 @@ class_name Enemy_Behavior
 ## Panic 4 - Will become very unpredictable and indecisive in chaotic panic
 ## Panic 5 - Will act completly irrational when paniced
 
+@export_group("Reaction")
+@export var reaction_speed_idle : float = 0.7 ## If the enemies just figured out you're there
+@export var reaction_speed_patrolling : float = 0.5 ## If the enemies just figured out you're there
+@export var reaction_speed_alert : float = 0.4 ## If the enemies know you're there
+@export var reaction_speed_ready : float = 0.1 ## If the enemy is already stationed for ambush
+@export_enum("Rush:0","Approach:1","Look At:2") var reaction_to_sound : int = 0
+@export var friendly_fire : bool = false
+
+
 @export_group("Aggression Values")
 ## Will have two second cooldown for 'being_shot_at' and/or 'taking_damage' before aggression is removed
 @export_range(0,100) var los_player: int = 5 ## Stacks per player (los = line of sight)

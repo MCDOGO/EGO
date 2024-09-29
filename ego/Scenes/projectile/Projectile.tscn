@@ -54,6 +54,9 @@ script = ExtResource("4_kkmme")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Explosive/Explosive Radius"]
 
+[node name="Thinggy" type="RayCast2D" parent="."]
+target_position = Vector2(1, 0)
+
 [connection signal="body_entered" from="Hit Wall" to="." method="_on_hit_body_entered"]
 [connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]
 [connection signal="timeout" from="Explosive/Explosive Lifespan" to="." method="_on_explossive_lifespan_timeout"]

@@ -75,14 +75,37 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Stats" type="Label" parent="Panel/HBoxContainer/Panel/Stats"]
+[node name="Health" type="Label" parent="Panel/HBoxContainer/Panel/Stats"]
 layout_mode = 2
-text = "HP: #
-Armor: #
-Speed: #
-VIT: #
-AGI: #
-LUK: #"
+theme_override_font_sizes/font_size = 12
+text = "Health: 100"
+
+[node name="Armor" type="Label" parent="Panel/HBoxContainer/Panel/Stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Armor: 100
+"
+
+[node name="Speed" type="Label" parent="Panel/HBoxContainer/Panel/Stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Speed: 100
+"
+
+[node name="VIT" type="Label" parent="Panel/HBoxContainer/Panel/Stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Vitality: 10"
+
+[node name="AGI" type="Label" parent="Panel/HBoxContainer/Panel/Stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Agility: 10"
+
+[node name="LUK" type="Label" parent="Panel/HBoxContainer/Panel/Stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Luck: 10"
 
 [node name="Weapons" type="VBoxContainer" parent="Panel/HBoxContainer"]
 layout_mode = 2

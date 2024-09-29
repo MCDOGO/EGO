@@ -72,10 +72,11 @@ radius = 13.0
 size = Vector2(16, 32)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-collision_layer = 0
+collision_layer = 512
 motion_mode = 1
 script = ExtResource("1_ydrnv")
 player = ExtResource("2_dp25r")
+playerSimpleID = null
 
 [node name="Weapon" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
@@ -122,6 +123,9 @@ one_shot = true
 one_shot = true
 
 [node name="Swinging Speed" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="Attacking" type="Timer" parent="Timers"]
 one_shot = true
 
 [connection signal="timeout" from="Timers/Reload Speed" to="." method="_on_reload_speed_timeout"]

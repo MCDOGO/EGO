@@ -12,6 +12,7 @@ class_name User
 @export var melee_weapon: Melee_Weapon
 @export var heavy_weapon: Heavy_Weapon
 @export var throwable_weapon: Throwable_Weapon
+@export var starting_throwables: int = 2
 
 ## Other equiped items
 #@export var gloves: Equipable

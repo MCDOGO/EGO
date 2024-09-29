@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dqtu4f5uqwisr"]
+[gd_scene load_steps=12 format=3 uid="uid://dqtu4f5uqwisr"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/enemy_test.gd" id="1_1m478"]
 [ext_resource type="Resource" uid="uid://dxpufh5jrea2u" path="res://Resources/Behavioral/Normal_Enemy.tres" id="2_0iqkd"]
@@ -52,10 +52,7 @@ animations = [{
 size = Vector2(16, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i621h"]
-radius = 11.0
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_tq2ys"]
-resource_local_to_scene = true
+radius = 16.0
 
 [node name="EnemyTest" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 0
@@ -87,7 +84,7 @@ offset = Vector2(12, 0)
 
 [node name="Site" type="Area2D" parent="Rotates"]
 collision_layer = 0
-collision_mask = 16
+collision_mask = 512
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Rotates/Site"]
 polygon = PackedVector2Array(0, -20, 200, -200, 300, -100, 300, 100, 200, 200, 0, 20)
@@ -102,18 +99,19 @@ shape = SubResource("RectangleShape2D_4gx2d")
 [node name="Interaction Area" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i621h")
 
-[node name="Check For Player" type="Area2D" parent="."]
-top_level = true
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Check For Player"]
-shape = SubResource("SegmentShape2D_tq2ys")
+[node name="Line Of Sight" type="RayCast2D" parent="."]
+process_mode = 4
+target_position = Vector2(0, 1)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
 debug_enabled = true
+debug_path_custom_point_size = 2.0
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
+process_callback = 0
+wait_time = 0.2
+autostart = true
 
 [node name="Timers" type="Node" parent="."]
 
@@ -133,10 +131,16 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
-[connection signal="area_entered" from="Rotates/Site" to="." method="_on_site_area_entered"]
-[connection signal="area_exited" from="Rotates/Site" to="." method="_on_site_area_exited"]
+[node name="Reaction Timer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="Checking Timer" type="Timer" parent="Timers"]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="area_entered" from="Rotates/HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="body_entered" from="Rotates/HurtBox" to="." method="_on_hurt_box_body_entered"]
-[connection signal="body_entered" from="Check For Player" to="." method="_on_check_for_player_body_entered"]
-[connection signal="body_exited" from="Check For Player" to="." method="on_check_for_player_body_exited"]
+[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timers/Reaction Timer" to="." method="_on_reaction_timer_timeout"]
+[connection signal="timeout" from="Timers/Checking Timer" to="." method="_on_checking_timer_timeout"]

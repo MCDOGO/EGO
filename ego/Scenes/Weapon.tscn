@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bs6doa450qfbv"]
+
+[ext_resource type="Script" path="res://Scenes/weapon.gd" id="1_h30bf"]
+
+[node name="Weapon" type="Node2D"]
+script = ExtResource("1_h30bf")
+
+[node name="Attachments" type="Node" parent="."]
+
+[node name="Mag" type="Sprite2D" parent="Attachments"]
+
+[node name="Sight" type="Sprite2D" parent="Attachments"]
+
+[node name="Muzzle" type="Sprite2D" parent="Attachments"]
+
+[node name="Butt" type="Sprite2D" parent="Attachments"]
+
+[node name="Ammunition" type="Sprite2D" parent="Attachments"]
+
+[node name="Gun Sprite" type="Sprite2D" parent="."]

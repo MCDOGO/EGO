@@ -47,6 +47,7 @@ script = ExtResource("1_ncuqe")
 
 [node name="EnemyTest" parent="Enemy" instance=ExtResource("3_rckv6")]
 position = Vector2(274, 13)
+start_angle = 120
 
 [node name="EnemyTest2" parent="Enemy" instance=ExtResource("3_rckv6")]
 position = Vector2(270, -477)

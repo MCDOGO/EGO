@@ -33,7 +33,7 @@ var AGI: int = 0 ## Agility (Affects speed related traits)
 var LUK: int = 0 ## Luck (Affects rng related traits)
 
 	## Weapon related
-var active_weapon: Weapon_Parent
+
 
 var primary_weapon: Primary_Weapon
 var MAXPRIMARYAMMO: int ## Shouldn't be changed after being set
@@ -60,6 +60,7 @@ var health: int
 func _ready():
 	## Signals
 	SignalBus.enemy_damaged.connect(enemy_hurt)
+	#SignalBus.enemy_killed.connect(enemy_killed)
 	## Set Up
 	set_up_player()
 
@@ -74,14 +75,17 @@ func set_up_player():
 		
 		weapon_swap(weaponOveride)
 	if(player != null):
+		
 		primary_weapon = player.primary_weapon
 		melee_weapon = player.melee_weapon
 		heavy_weapon = player.heavy_weapon
 		throwable_weapon = player.throwable_weapon
 		
+		
 		## Primary Weapon
 		MAXPRIMARYAMMO = primary_weapon.max_ammo
 		primaryAmmo = MAXPRIMARYAMMO
+		
 		
 		## Melee Weapon
 		
@@ -92,9 +96,11 @@ func set_up_player():
 		MAXHEAVYAMMORESERVES = heavy_weapon.max_reserves
 		heavyAmmoReserves = MAXHEAVYAMMORESERVES # Always set to 0, only for debug
 		
+		
 		## Throwable
 		MAXTHROWABLES = throwable_weapon.max_throwables
-		#throwables = player.starting_throwables
+		throwables = player.starting_throwables
+		
 		
 		## Player
 		VIT = 0
@@ -108,43 +114,78 @@ func set_up_player():
 
 func _physics_process(_delta):
 	## Movement
+	
+	#print($RayCast2D.is_colliding())
+	
+	## Movenment
 	var direction = Input.get_vector("Left", "Right", "Up", "Down")
 	direction.normalized()
 	velocity = direction * SPEED
 	
-	## Checks if you can fire main weapon
-	if((true && Input.is_action_pressed("Fire")) && 
-	fireRateRefresh.is_stopped() && reloadSpeed.is_stopped()): 
-		## Make it so it detects auto or not auto
-		if(active_weapon is Throwable_Weapon):
-			attack(false)
-		else:
-			attack(true)
-	elif(false && Input.is_action_pressed("Melee")):
-		if(active_weapon is Throwable_Weapon):
-			attack(false)
-		else:
-			attack(false)
-		#weapon_swap(Melee_Weapon)
-		#attack(false)
-	elif(Input.is_action_just_pressed("Reload") && reloadSpeed.is_stopped()):
-		if(active_weapon is Primary_Weapon && (primaryAmmo != MAXPRIMARYAMMO)):
-			reload()
-		elif(active_weapon is Heavy_Weapon && (heavyAmmo != MAXHEAVYAMMO)):
-			reload()
-	elif(Input.is_action_pressed("Throwable")):
-		if(!active_weapon is Throwable_Weapon):
-			weapon_swap(throwable_weapon)
-		else:
-			weapon_swap(primary_weapon)
-	elif(Input.is_action_just_pressed("Swap Gun")):
-		if(!reloadSpeed.is_stopped()):
-			reloadCancel = true
-			reloadSpeed.stop()
-		if(!active_weapon is Heavy_Weapon):
-			weapon_swap(heavy_weapon)
-		else:
-			weapon_swap(primary_weapon)
+	
+	
+	## Inputs
+	#if((Input.is_action_pressed("Fire")) && 
+	#fireRateRefresh.is_stopped() && reloadSpeed.is_stopped()): 
+		### Make it so it detects auto or not auto
+		#if(active_weapon is Throwable_Weapon):
+			#attack()
+		#else:
+			#attack()
+	#elif(false && Input.is_action_pressed("Melee")):
+		#weapon_swap(melee_weapon)
+		#if(active_weapon is Throwable_Weapon):
+			#attack()
+		#else:
+			#attack()
+		##weapon_swap(Melee_Weapon)
+		##attack(false)
+	#elif(Input.is_action_just_pressed("Reload") && reloadSpeed.is_stopped()):
+		#if(active_weapon is Primary_Weapon && (primaryAmmo != MAXPRIMARYAMMO)):
+			#reload()
+		#elif(active_weapon is Heavy_Weapon && (heavyAmmo != MAXHEAVYAMMO)):
+			#reload()
+	#elif(Input.is_action_pressed("Throwable")):
+		#if(!active_weapon is Throwable_Weapon):
+			#weapon_swap(throwable_weapon)
+		#else:
+			#weapon_swap(primary_weapon)
+	#elif(Input.is_action_just_pressed("Swap Gun")):
+		#if(!reloadSpeed.is_stopped()):
+			#reloadCancel = true
+			#reloadSpeed.stop()
+		#if(!active_weapon is Heavy_Weapon):
+			#weapon_swap(heavy_weapon)
+		#else:
+			#weapon_swap(primary_weapon)
+	#
+	if($"Timers/Swinging Speed".is_stopped() && $Timers/Attacking.is_stopped()):
+		
+		## For attacking with melee weapon
+		if(Input.is_action_pressed("Melee")):
+			melee_attack(true) ## Will be false if heavy attack is melee based
+		
+		## Swap to throwable weapon
+		elif(Input.is_action_just_pressed("Throwable")):
+			#throwable_swap() ## Will swap to throwable weapon
+			pass
+		
+		## Reloads active weapon
+		elif(Input.is_action_just_pressed("Reload")):
+			reload() # Rework reload script
+		
+		## 
+		elif(Input.is_action_just_pressed("Swap Gun")):
+			#weapon_swap()
+			pass
+		
+		## For attacking with active weapon
+		elif(Input.is_action_pressed("Fire") && fireRateRefresh.is_stopped()
+		 && reloadSpeed.is_stopped()): ## And melee cooldown 1, and not swinging
+			#attack() # Rework attack script
+			pass
+		
+	
 	
 	## Makes you look at cursor
 	look_at(get_global_mouse_position())
@@ -153,117 +194,187 @@ func _physics_process(_delta):
 	move_and_slide()
 
 
+## Vars for 
+var active_weapon: Weapon_Parent ## Active weapon to easy grab data without checking type
+var primary_or_heavy := true ## true for primary
+var throwable_on := false ## for if throwable is equiped
+
+
+## Attack for melees
+func melee_attack(Heavy: bool):
+	pass
+
+
+## Swap to Throwable weapon
+func throwable_swap():
+	throwable_on = !throwable_on
+	if(throwable_on):
+		pass
+	else:
+		active_weapon = primary_weapon if primary_or_heavy else heavy_weapon
+
+
+## Reloads weaponry
+func reload():
+	if(primary_or_heavy): ## Primary reload
+		pass
+	else: #elif(heavy.is_reloadable): ## Heavy reload 
+		pass
+
+
+## Swaps between primary and heavy
+func weapon_swap():
+	primary_or_heavy = !primary_or_heavy
+	if(primary_or_heavy): ## Primary weapon swap to
+		pass
+	else:
+		pass ## Primary sprite swap to
+	sprite_swap()
+
+
+## attacking with primary, heavy, or throwable
+func attack():
+	if(throwable_on): ## Throwable throw
+		pass
+	elif(primary_or_heavy): ## Primary weapon attack
+		pass
+	else: ## Heavy weapon attack
+		pass
+
+
+## Swaps weapon sprites
+func sprite_swap():
+	if(throwable_on): ## Swap to throwable animation
+		pass
+	if(primary_or_heavy): ## Primary sprite swap to
+		pass
+	elif(active_weapon is Melee_Weapon): ## Swap to melee attack animation
+		pass
+	else: ## Heavy swap to
+		if(heavy_weapon.gun_or_melee): ## Firearm
+			pass
+		else: ## Melee
+			pass
+
+
+
+
+
+
+
+
+
+
 ## Will handle what to do based on active weapon when attack buttons are pressed
-func attack(shooting:bool):
-	if(shooting):
-		if(active_weapon is Primary_Weapon):
-			if(primaryAmmo > 0):
-				primaryAmmo -= 1
-				fireRateRefresh.start()
-				create_projectile()
-			else:
-				reload()
-		else:
-			if(heavyAmmo > 0):
-				heavyAmmo -= 1
-				fireRateRefresh.start()
-				create_projectile()
-			else:
-				if(!heavyAmmoReserves > 0):
-					weapon_swap(primary_weapon)
-				else:
-					reload()
+#func attack():
+	#if(active_weapon is Primary_Weapon):
+		#if(primaryAmmo > 0):
+			#primaryAmmo -= 1
+			#fireRateRefresh.start()
+			#create_projectile()
+		#else:
+			#reload()
+	#elif(active_weapon is Heavy_Weapon):
+		#if(heavyAmmo > 0):
+			#heavyAmmo -= 1
+			#fireRateRefresh.start()
+			#create_projectile()
+		#else:
+			#if(!heavyAmmoReserves > 0):
+				#weapon_swap(primary_weapon)
+			#else:
+				#reload()
+	#elif(active_weapon is Melee_Weapon):
+		#pass
+	#elif(active_weapon is Throwable_Weapon):
+		#pass
 
 
 ## Handles creating projectiles
-var offsetSwap = false
-
-func reload():
-	reloadSpeed.wait_time = active_weapon.reload_speed
-	reloadSpeed.start()
-	if(active_weapon is Heavy_Weapon):
-		heavyAmmoReserves+=heavyAmmo
-		heavyAmmo = 0
-	else:
-		primaryAmmo = 0
-	SignalBus.player_reloading.emit(active_weapon.reload_speed)
-
-
-func set_projectile():
-	
-	## Standard Procedure
-	var instance = projectile.instantiate()
-	instance.dir = rotation
-	instance.spawnPos = global_position
-	instance.spawnRot = global_rotation
-	instance.playerObj = self
-	offsetSwap = !offsetSwap
-	#instance.attackID = attackID
-	
-	## Based on weapon
-	instance.SPEED = active_weapon.projectile_speed
-	instance.offsetMain = active_weapon.y_offset
-	instance.offsetSecondary = active_weapon.x_offset * (1 if offsetSwap else -1)
-	instance.damage = active_weapon.damage 
-	
-	## Luck based changes
-	if(active_weapon.fire_mode != 8):
-		pass
-	
-	return instance
-
-
-var attackID = 0
-
-func create_projectile():
-	## Creating the projectile
-	if(active_weapon.fire_mode == 8):
-		for i in active_weapon.pellet_count:
-			var instance = set_projectile()
-			instance.damage /= active_weapon.pellet_count
-			instance.dir += deg_to_rad(randi_range(active_weapon.spread*-1,active_weapon.spread))
-			main.add_child.call_deferred(instance)
-	else:
-		var instance = set_projectile()
-		main.add_child.call_deferred(instance)
-	attackID += 1
+#var offsetSwap = false
+#
+#func reload():
+	#reloadSpeed.wait_time = active_weapon.reload_speed
+	#reloadSpeed.start()
+	#if(active_weapon is Heavy_Weapon):
+		#heavyAmmoReserves+=heavyAmmo
+		#heavyAmmo = 0
+	#else:
+		#primaryAmmo = 0
+	#SignalBus.player_reloading.emit(active_weapon.reload_speed)
+#
+#
+#func set_projectile():
+	#
+	### Standard Procedure
+	#var instance = projectile.instantiate()
+	#instance.dir = rotation
+	#instance.spawnPos = global_position
+	#instance.spawnRot = global_rotation
+	#instance.playerObj = self
+	#offsetSwap = !offsetSwap
+	##instance.attackID = attackID
+	#
+	### Based on weapon
+	#instance.SPEED = active_weapon.projectile_speed
+	#instance.offsetMain = active_weapon.y_offset
+	#instance.offsetSecondary = active_weapon.x_offset * (1 if offsetSwap else -1)
+	#instance.damage = active_weapon.damage 
+	#
+	### Luck based changes
+	#if(active_weapon.fire_mode != 8):
+		#pass
+	#
+	#return instance
+#
+#
+#var attackID = 0
+#
+#func create_projectile():
+	### Creating the projectile
+	#if(active_weapon.fire_mode == 8):
+		#for i in active_weapon.pellet_count:
+			#var instance = set_projectile()
+			#instance.damage /= active_weapon.pellet_count
+			#instance.dir += deg_to_rad(randi_range(active_weapon.spread*-1,active_weapon.spread))
+			#main.add_child.call_deferred(instance)
+	#else:
+		#var instance = set_projectile()
+		#main.add_child.call_deferred(instance)
+	#attackID += 1
 
 
 ## Updates stats and animations for new active weapon
-func weapon_swap(weapon: Weapon_Parent):
-	$Weapon.texture = load(weapon.sprite)
-	active_weapon = weapon
-	if(weapon is Primary_Weapon || (weapon is Heavy_Weapon && weapon.gun_or_melee)):
-		fireRateRefresh.wait_time = active_weapon.fire_rate
-		match(weapon.weapon_type):
-			0:
-				$Body.play("One Handed")
-				$Weapon.z_index = z_index
-			1:
-				$Body.play("Akimbo")
-				$Weapon.z_index = z_index
-			2:
-				$Body.play("Two Handed")
-				$Weapon.z_index = z_index+1
-	elif(weapon is Melee_Weapon || (weapon is Heavy_Weapon && !weapon.gun_or_melee)):
-		fireRateRefresh.wait_time = active_weapon.recovery
-		swingingSpeed.wait_time = active_weapon.speed
-		if(weapon.single_handed):
-			$Body.play("One Handed Melee")
-		else:
-			$Body.play("Two Handed Melee")
-	elif(weapon is Throwable_Weapon):
-		pass
-	else:
-		print("Passed in invalid variable to weapon swap")
+#func weapon_swap(weapon: Weapon_Parent):
+	#$Weapon.texture = load(weapon.sprite)
+	#active_weapon = weapon
+	#if(weapon is Primary_Weapon || (weapon is Heavy_Weapon && weapon.gun_or_melee)):
+		#fireRateRefresh.wait_time = active_weapon.fire_rate
+		#match(weapon.weapon_type):
+			#0:
+				#$Body.play("One Handed")
+				#$Weapon.z_index = z_index
+			#1:
+				#$Body.play("Akimbo")
+				#$Weapon.z_index = z_index
+			#2:
+				#$Body.play("Two Handed")
+				#$Weapon.z_index = z_index+1
+	#elif(weapon is Melee_Weapon || (weapon is Heavy_Weapon && !weapon.gun_or_melee)):
+		#fireRateRefresh.wait_time = active_weapon.recovery
+		#swingingSpeed.wait_time = active_weapon.speed
+		#if(weapon.single_handed):
+			#$Body.play("One Handed Melee")
+		#else:
+			#$Body.play("Two Handed Melee")
+	#elif(weapon is Throwable_Weapon):
+		#pass
+	#else:
+		#print("Passed in invalid variable to weapon swap")
 
 
-## Signals
-func enemy_hurt(player: int, inSmoke: bool, weapon: Resource, conditions: int):
-	if(player == playerSimpleID):
-		pass
-
-func _on_reload_speed_timeout():
+## Node signals
+func _on_reload_speed_timeout(): # Rework this script
 	if(!reloadCancel):
 		if(active_weapon is Primary_Weapon):
 			if(active_weapon.magizine):
@@ -290,3 +401,9 @@ func _on_reload_speed_timeout():
 						SignalBus.player_reloading.emit(active_weapon.reload_speed)
 	else:
 		reloadCancel = false
+
+
+## Connected Signals
+func enemy_hurt(player: int, inSmoke: bool, weapon: Resource, conditions: int):
+	if(player == playerSimpleID):
+		pass
