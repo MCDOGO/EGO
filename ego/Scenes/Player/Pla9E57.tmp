@@ -76,6 +76,7 @@ collision_layer = 512
 motion_mode = 1
 script = ExtResource("1_ydrnv")
 player = ExtResource("2_dp25r")
+playerSimpleID = null
 
 [node name="Weapon" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)

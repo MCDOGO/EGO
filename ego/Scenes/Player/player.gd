@@ -73,7 +73,8 @@ func set_up_player():
 		MAXPRIMARYAMMO = primary_weapon.max_ammo
 		primaryAmmo = MAXPRIMARYAMMO
 		
-		weapon_swap(weaponOveride)
+		active_weapon = primary_weapon
+		weapon_swap()
 	if(player != null):
 		
 		primary_weapon = player.primary_weapon
@@ -107,7 +108,8 @@ func set_up_player():
 		AGI = 0
 		LUK = 0
 		
-		weapon_swap(primary_weapon)
+		active_weapon = primary_weapon
+		weapon_swap()
 	else:
 		print("User Null")
 
@@ -176,7 +178,7 @@ func _physics_process(_delta):
 		
 		## 
 		elif(Input.is_action_just_pressed("Swap Gun")):
-			#weapon_swap()
+			weapon_swap()
 			pass
 		
 		## For attacking with active weapon
@@ -209,7 +211,7 @@ func melee_attack(Heavy: bool):
 func throwable_swap():
 	throwable_on = !throwable_on
 	if(throwable_on):
-		pass
+		active_weapon = throwable_weapon
 	else:
 		active_weapon = primary_weapon if primary_or_heavy else heavy_weapon
 
@@ -226,10 +228,10 @@ func reload():
 func weapon_swap():
 	primary_or_heavy = !primary_or_heavy
 	if(primary_or_heavy): ## Primary weapon swap to
-		pass
-	else:
-		pass ## Primary sprite swap to
-	sprite_swap()
+		active_weapon = primary_weapon
+	else: ## Heavy weapon swap to
+		active_weapon = heavy_weapon
+	sprite_swap() ## Primary sprite swap to
 
 
 ## attacking with primary, heavy, or throwable
