@@ -1,43 +1,9 @@
-[gd_resource type="Resource" script_class="User" load_steps=7 format=3 uid="uid://cxltx6ibomfma"]
+[gd_resource type="Resource" script_class="User" load_steps=2 format=3 uid="uid://cxltx6ibomfma"]
 
-[ext_resource type="Resource" uid="uid://c0ndujf04ssjk" path="res://Resources/Weapons/Heavy Weapons/Two Handed/LMG.tres" id="1_4eoqf"]
 [ext_resource type="Script" path="res://Scenes/Player/Resources/User.gd" id="1_spxs4"]
-[ext_resource type="Script" path="res://Resources/Weapons/Melee Weapons/Melee Weapon.gd" id="2_sqb72"]
-[ext_resource type="Resource" uid="uid://cde3kbixpmkf7" path="res://Resources/Weapons/Primary Weapons/One Handed/Revolver.tres" id="3_s487y"]
-[ext_resource type="Resource" uid="uid://dpe8tywssom1k" path="res://Resources/Weapons/Throwables/PowderBomb.tres" id="5_b56gg"]
-
-[sub_resource type="Resource" id="Resource_v6wv8"]
-script = ExtResource("2_sqb72")
-single_handed = false
-swing_or_stab = false
-speed = 0.0
-recovery = 0.0
-radius = 0
-distance = 0
-attack_length = 0
-attack_width = 0
-name = ""
-sprite = null
-sprite_offset = Vector2i(0, 0)
-damage = 0
-crit_chance = 0
-crit_multiplier = 0.0
-silent = false
-status_chance = 0
-status = 0
-status_damage = 0
-status_duration = 0.0
-min_distance_tp = 400
-comfortable_distance_tp = 350
-max_distance_tp = 300
-melee_rush_tp = 100
 
 [resource]
 script = ExtResource("1_spxs4")
-max_health = 100
-speed = 300
-primary_weapon = ExtResource("3_s487y")
-melee_weapon = SubResource("Resource_v6wv8")
-heavy_weapon = ExtResource("1_4eoqf")
-throwable_weapon = ExtResource("5_b56gg")
-starting_throwables = 2
+max_health = null
+speed = null
+starting_throwables = null

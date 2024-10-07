@@ -6,8 +6,8 @@ class_name Melee_Weapon
 @export var single_handed: bool ## For animations
 
 @export var swing_or_stab: bool ## Swing: true, Stab: false
-@export var speed: float
-@export var recovery: float
+@export var attack_speed: float
+@export var recovery_time: float
 
 @export_group("Swing")
 @export var radius: int

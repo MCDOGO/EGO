@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="Armor" load_steps=8 format=3 uid="uid://ceawaw2cwud4o"]
+
+[ext_resource type="Script" path="res://Resources/Attribute.gd" id="1_872qo"]
+[ext_resource type="Script" path="res://Resources/Armor/Armor.gd" id="2_04gih"]
+
+[sub_resource type="Resource" id="Resource_0f2lj"]
+script = ExtResource("1_872qo")
+effect = 8
+effect_chance = 0
+effect_scale = 1.25
+add_or_multiply = true
+target = 8
+exceptions = 0
+
+[sub_resource type="Resource" id="Resource_hgd8v"]
+script = ExtResource("1_872qo")
+effect = 8
+effect_chance = 2
+effect_scale = 1.2
+add_or_multiply = true
+target = 0
+exceptions = 0
+
+[sub_resource type="Resource" id="Resource_18lrg"]
+script = ExtResource("1_872qo")
+effect = 3
+effect_chance = 0
+effect_scale = 1.5
+add_or_multiply = true
+target = 0
+exceptions = 0
+
+[sub_resource type="Resource" id="Resource_2ug8q"]
+script = ExtResource("1_872qo")
+effect = 3
+effect_chance = 1
+effect_scale = 2.0
+add_or_multiply = true
+target = 0
+exceptions = 0
+
+[sub_resource type="Resource" id="Resource_ddv32"]
+script = ExtResource("1_872qo")
+effect = 9
+effect_chance = 0
+effect_scale = 50.0
+add_or_multiply = false
+target = 0
+exceptions = 0
+
+[resource]
+script = ExtResource("2_04gih")
+ID = 1
+name = "Bomb Vest"
+base_speed = 250
+base_health = 75
+armor_value = 300
+armor_damage_reduction = 0.1
+armor_speed_deduction = 0.8
+armor_regen = 10
+armor_regen_start = 15.0
+shield_gate_cooldown = 5.0
+armor_break_invincible = 3.0
+general_attributes = Array[ExtResource("1_872qo")]([SubResource("Resource_0f2lj"), SubResource("Resource_hgd8v")])
+armor_attributes = Array[ExtResource("1_872qo")]([])
+no_armor_attributes = Array[ExtResource("1_872qo")]([SubResource("Resource_18lrg"), SubResource("Resource_2ug8q"), SubResource("Resource_ddv32")])
+burn_resistance = 0.0
+stun_resistance = 0.0
+zap_resistance = 0.0
+poison_resistance = 0.0
