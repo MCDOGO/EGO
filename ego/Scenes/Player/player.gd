@@ -75,7 +75,7 @@ func set_up_player():
 		
 		active_weapon = primary_weapon
 		weapon_swap()
-	if(player != null):
+	elif(player != null):
 		
 		primary_weapon = player.primary_weapon
 		melee_weapon = player.melee_weapon
@@ -102,12 +102,7 @@ func set_up_player():
 		MAXTHROWABLES = throwable_weapon.max_throwables
 		throwables = player.starting_throwables
 		
-		
-		## Player
-		VIT = 0
-		AGI = 0
-		LUK = 0
-		
+		## Sets active weapon at start
 		active_weapon = primary_weapon
 		weapon_swap()
 	else:
@@ -197,31 +192,40 @@ func _physics_process(_delta):
 
 ## Vars for 
 var active_weapon: Weapon_Parent ## Active weapon to easy grab data without checking type
-var primary_or_heavy := true ## true for primary
+var primary_or_heavy := false ## true for primary
 var throwable_on := false ## for if throwable is equiped
 
 
 ## Attack for melees
 func melee_attack(Heavy: bool):
 	pass
+	sprite_swap(melee_weapon)
 
 
 ## Swap to Throwable weapon
 func throwable_swap():
+	
 	throwable_on = !throwable_on
+	
 	if(throwable_on):
 		active_weapon = throwable_weapon
+	
 	else:
 		active_weapon = primary_weapon if primary_or_heavy else heavy_weapon
+	
+	sprite_swap(active_weapon)
 
 
 ## Reloads weaponry
 func reload():
+	
 	reloadSpeed.wait_time = active_weapon.reload_speed
 	reloadSpeed.start()
+	
 	if(primary_or_heavy): ## Primary reload
 		if(active_weapon.magizine):
 			primaryAmmo = 0
+	
 	else: #elif(heavy.is_reloadable): ## Heavy reload 
 		if(active_weapon.magizine):
 			heavyAmmo = 0
@@ -229,12 +233,15 @@ func reload():
 
 ## Swaps between primary and heavy
 func weapon_swap():
+	
 	primary_or_heavy = !primary_or_heavy
+	
 	if(primary_or_heavy): ## Primary weapon swap to
 		active_weapon = primary_weapon
 	else: ## Heavy weapon swap to
 		active_weapon = heavy_weapon
-	sprite_swap() ## Primary sprite swap to
+		
+	sprite_swap(active_weapon) ## Primary sprite swap to
 
 
 ## attacking with primary, heavy, or throwable
@@ -242,35 +249,63 @@ func attack():
 	if(throwable_on): ## Throwable throw
 		## Start Playing Animation
 		## Create Thrown Projectile
+		## Timers
 		pass
-	elif(primary_or_heavy): ## Primary weapon attack
-		## Check Ammo
-		## Create Thrown Projectile
-		## 
-		pass
-	else: ## Heavy weapon attack
+	else: ## Primary weapon attack
+		
+		## Check/Change Ammo
+		if(primary_or_heavy):
+			pass
+		else:
+			pass
+		
+		if(true):
+			pass
+		## Animation
+		## Create Projectile
+		## Timers
 		pass
 
 
 ## Swaps weapon sprites
-func sprite_swap():
-	$Weapon.texture = active_weapon.sprite
-	if(active_weapon is Melee_Weapon): ## Swap to melee attack animation
-		if(active_weapon.single_handed):
-			$Body.play("One Handed Melee")
+func sprite_swap(weapon: Weapon_Parent):
+	
+	$Weapon.texture = load(weapon.sprite)
+	
+	if(weapon is Melee_Weapon): ## Swap to melee attack animation
+		if(weapon.single_handed):
+			$LBody.play("One Handed Melee")
+			$RBody.play("One Handed Melee")
 		else:
-			$Body.play("Two Handed Melee")
+			$LBody.play("Two Handed Melee")
+			$RBody.play("Two Handed Melee")
+	
 	elif(throwable_on): ## Swap to throwable animation
 		pass
 		##Body.play("Throwable")
+	
 	else: ## Set primary or heavy sprite
-		match(active_weapon.weapon_type):
+		$WeaponAkimbo.set_texture(null if (weapon.weapon_type != 1) else load(weapon.sprite))
+		match(weapon.weapon_type):
 			0:
-				$Body.play("One Handed")
+				$LBody.play("One Handed")
+				$RBody.play("One Handed")
+				
+				$Weapon.offset = Vector2i(15 + weapon.sprite_offset.y, 2 + weapon.sprite_offset.x)
+				$Weapon.z_index = 0
 			1:
-				$Body.play("Akimbo")
+				$LBody.play("Akimbo")
+				$RBody.play("Akimbo")
+				
+				$Weapon.offset = Vector2i(14 + weapon.sprite_offset.y, 4 + weapon.sprite_offset.x)
+				$WeaponAkimbo.offset = Vector2i(14 + weapon.sprite_offset.y, -4 + (-weapon.sprite_offset.x))
+				$Weapon.z_index = 0
 			2:
-				$Body.play("Two Handed")
+				$LBody.play("Two Handed")
+				$RBody.play("Two Handed")
+				
+				$Weapon.offset = Vector2i(15 + weapon.sprite_offset.y, weapon.sprite_offset.x)
+				$Weapon.z_index = 1
 
 
 

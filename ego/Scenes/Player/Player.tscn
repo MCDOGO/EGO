@@ -1,18 +1,98 @@
-[gd_scene load_steps=12 format=3 uid="uid://6o3tcdqrf4og"]
+[gd_scene load_steps=18 format=3 uid="uid://6o3tcdqrf4og"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_ydrnv"]
+[ext_resource type="Script" path="res://Resources/Weapons/Weapon Gun.gd" id="2_edceu"]
 [ext_resource type="Texture2D" uid="uid://tadd4hbrfjoc" path="res://Assets/Weapons/Akimbo/Pistols.png" id="2_erirs"]
-[ext_resource type="Texture2D" uid="uid://2jswwfkck818" path="res://Assets/Player Sprites Base/Idle/Idle.png" id="2_erk5f"]
-[ext_resource type="Texture2D" uid="uid://oyqpjf48cooq" path="res://Assets/Player Sprites Base/Akimbo/Akimbo.png" id="2_uelae"]
-[ext_resource type="Texture2D" uid="uid://dsmrededslur2" path="res://Assets/Player Sprites Base/One Handed/OneHanded.png" id="5_bexf8"]
+[ext_resource type="Texture2D" uid="uid://cd3dpy0ddrkda" path="res://Assets/Player Sprites Base/Akimbo/AkimboL.png" id="4_7g4yo"]
+[ext_resource type="Texture2D" uid="uid://iwxp1ervak76" path="res://Assets/Player Sprites Base/Idle/IdleL.png" id="5_0kelg"]
 [ext_resource type="Texture2D" uid="uid://oio1iy5e2hfn" path="res://Assets/Player Sprites Base/Head.png" id="5_bxqru"]
-[ext_resource type="Texture2D" uid="uid://dr7xb8xuwiw43" path="res://Assets/Player Sprites Base/Two Handed-LAPTOP-CRO42JVH/TwoHanded.png" id="6_knmqg"]
+[ext_resource type="Texture2D" uid="uid://cl4frboyh7iu0" path="res://Assets/Player Sprites Base/Two Handed/TwoHandedL.png" id="6_vgfoc"]
+[ext_resource type="Texture2D" uid="uid://dcendx1p22r4i" path="res://Assets/Player Sprites Base/Akimbo/AkimboR.png" id="8_77wbd"]
+[ext_resource type="Texture2D" uid="uid://d3r7t6ss6qwuy" path="res://Assets/Player Sprites Base/Idle/IdleR.png" id="9_0qwky"]
+[ext_resource type="Texture2D" uid="uid://ddxo8d2dgja1" path="res://Assets/Player Sprites Base/One Handed/OneHandedR.png" id="10_23rfc"]
+[ext_resource type="Texture2D" uid="uid://dfs8vvsyyrq3f" path="res://Assets/Player Sprites Base/Two Handed/TwoHandedR.png" id="11_ny6jf"]
+
+[sub_resource type="Resource" id="Resource_m6wq4"]
+script = ExtResource("2_edceu")
+charge_weapon = false
+multi_projectile = false
+burst = false
+explossive = false
+automatic = false
+heavy_weapon = false
+max_ammo = 0
+weapon_type = 2
+fire_mode = 0
+fire_rate = 0.0
+magizine = true
+reload_speed = 0.0
+laser = false
+recoil_severity = 0
+recoil_movenmnet_scale = 0
+projectile_speed = 1200
+projectile_speed_falloff = 0
+max_distance = -1
+y_offset = 20
+x_offset = 0
+explossive_damage = 0
+explossive_radius = 0
+explossive_duration = 0.0
+explossive_smoke = false
+valid_or_release = false
+valid_timer = 0.0
+var_max_timer = 0.0
+full_charge_damage = 1.0
+full_charge_crit_chnc = 1.0
+full_charge_crit_dmg = 1.0
+projectile_ammount = 0
+burst_spread = 10
+time_between = 0.1
+groups = 1
+max_reserves = 0
+projectile = null
+projectile_hit_box_size = Vector2i(12, 6)
+casing_or_mag = null
+eject_casing_left = false
+screen_shake_per = 20
+screen_shake_max = 60
+smoke_severity = 10
+spark_severity = 10
+magazines = Array[int]([])
+magazine_offset = Vector2i(0, 0)
+sights = Array[int]([])
+sight_offset = Vector2i(0, 0)
+muzzles = Array[int]([])
+muzzle_offset = Vector2i(0, 0)
+butts = Array[int]([])
+butt_offset = Vector2i(0, 0)
+show_projectile = false
+munitions = Array[int]([])
+ammunition_offset = Vector2i(0, 0)
+name = ""
+ID = 0
+sprite = "res://Assets/Weapons/Two Handed/LMG.png"
+sprite_offset = Vector2i(0, 0)
+muzzle_position = Vector2i(0, 0)
+damage = 5
+crit_chance = 10
+crit_multiplier = 2.0
+armor_penetration_chance = 0
+armor_penetration_amount = 0
+silent = false
+status_chance = 0
+status = 0
+status_damage = 0
+status_duration = 0.0
+min_distance_tp = 400
+comfortable_distance_tp = 350
+max_distance_tp = 300
+melee_rush_tp = 100
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5vvl4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_uelae")
+"texture": ExtResource("4_7g4yo")
 }],
 "loop": false,
 "name": &"Akimbo",
@@ -20,7 +100,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_erk5f")
+"texture": ExtResource("5_0kelg")
 }],
 "loop": false,
 "name": &"Idle",
@@ -28,7 +108,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_bexf8")
+"texture": ExtResource("5_0kelg")
 }],
 "loop": false,
 "name": &"One Handed",
@@ -41,7 +121,52 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_knmqg")
+"texture": ExtResource("6_vgfoc")
+}],
+"loop": false,
+"name": &"Two Handed",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"Two Handed Melee",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lba48"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_77wbd")
+}],
+"loop": false,
+"name": &"Akimbo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_0qwky")
+}],
+"loop": false,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_23rfc")
+}],
+"loop": false,
+"name": &"One Handed",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"One Handed Melee",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_ny6jf")
 }],
 "loop": false,
 "name": &"Two Handed",
@@ -74,16 +199,27 @@ size = Vector2(16, 32)
 collision_layer = 512
 motion_mode = 1
 script = ExtResource("1_ydrnv")
+weaponOveride = SubResource("Resource_m6wq4")
 
 [node name="Weapon" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("2_erirs")
 offset = Vector2(12, 0)
 
-[node name="Body" type="AnimatedSprite2D" parent="."]
+[node name="WeaponAkimbo" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+flip_v = true
+
+[node name="LBody" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_5vvl4")
-animation = &"Akimbo"
+animation = &"Idle"
+offset = Vector2(12, 0)
+
+[node name="RBody" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_lba48")
+animation = &"Idle"
 offset = Vector2(12, 0)
 
 [node name="Head" type="AnimatedSprite2D" parent="."]
@@ -92,6 +228,8 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ymik2")
 animation = &"Head"
 offset = Vector2(12, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="Interaction Area" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8it3u")

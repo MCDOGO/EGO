@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dr7xb8xuwiw43"
-path="res://.godot/imported/TwoHanded.png-10bd84744445e466c57b624cb5491a66.ctex"
+uid="uid://2kfwhqj28ff0"
+path="res://.godot/imported/PlayerTest.png-727a43202a3c0e578b35578c7933dd9b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Player Sprites Base/Two Handed-LAPTOP-CRO42JVH/TwoHanded.png"
-dest_files=["res://.godot/imported/TwoHanded.png-10bd84744445e466c57b624cb5491a66.ctex"]
+source_file="res://Assets/PlayerTest.png"
+dest_files=["res://.godot/imported/PlayerTest.png-727a43202a3c0e578b35578c7933dd9b.ctex"]
 
 [params]
 

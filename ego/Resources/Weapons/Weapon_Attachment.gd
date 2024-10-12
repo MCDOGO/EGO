@@ -6,6 +6,6 @@ class_name Weapon_Attachment
 
 @export var name : String
 @export var ID : int
-@export_enum("") var attachment_type: int
+@export_enum("mag", "sight", "muzzle", "butt", "bullet") var attachment_type: int
 
 @export var effects : Array[Attribute]
