@@ -12,48 +12,48 @@ var lastMouseVector : Vector2
 func _process(delta: float) -> void:
 	
 	if(Input.is_action_pressed("Fire")):
-		mouseVector = to_local(get_global_mouse_position())
+		mouseVector = get_global_mouse_position()
 	
-	if(lastMouseVector != mouseVector ):
-		var tempVect: Vector2 = $Skeleton2D/Body/LeftShoulder.position
-		mouseVector.x += $Skeleton2D/Body/LeftShoulder.position.x
-		mouseVector.y -= $Skeleton2D/Body/LeftShoulder.position.y
+	if(lastMouseVector != mouseVector):
 		
-		#var distanceToMouseLeft = sqrt(pow(mouseVector.x+tempVect.x, 2) + pow(mouseVector.y-tempVect.y, 2))
-		var distanceToMouseLeft = ($Skeleton2D/Body/LeftShoulder.position).distance_to(mouseVector)
-		print(distanceToMouseLeft)
+		## Left
+		var maxLengthLeft = $Skeleton2D/Body/LeftShoulder.get_length() + $Skeleton2D/Body/LeftShoulder/LeftElbow.get_length()
+		var boneLengthLeft = 91 ## Base bone length for left arm
+		var scaleValueLeft = 91 ## The calculated scale value to use in calculations
 		
-		if(distanceToMouseLeft >= 179):
-			$Skeleton2D/Body/LeftShoulder.rotation = $Skeleton2D/Body.get_angle_to(mouseVector) + PI/2
+		var distanceToMouseLeft = $Skeleton2D/Body/LeftShoulder.position.distance_to( mouseVector )
+		var angleToLeft = atan( ( mouseVector.y + 72 ) / ( mouseVector.x ) ) + ( PI if mouseVector.x >= 0 else 0 )
+		if(distanceToMouseLeft >= maxLengthLeft):
+			$Skeleton2D/Body/LeftShoulder.rotation = angleToLeft - PI / 2
 			$Skeleton2D/Body/LeftShoulder/LeftElbow.rotation = 0
+			$Skeleton2D/Body/LeftShoulder.scale = Vector2.ONE
 		else:
+			scaleValueLeft = ( boneLengthLeft / 2 ) * pow( 1.00388, distanceToMouseLeft ) 
+			$Skeleton2D/Body/LeftShoulder.rotation = asin( ( distanceToMouseLeft / 2 ) / scaleValueLeft ) + angleToLeft + PI ## Shoulder
+			$Skeleton2D/Body/LeftShoulder/LeftElbow.rotation = acos( ( distanceToMouseLeft / 2 ) / scaleValueLeft ) * 2 ## Elbow
+			print(scaleValueLeft)
+			## Change size of thing
+			$Skeleton2D/Body/LeftShoulder.scale.y = scaleValueLeft/boneLengthLeft
 			
-			var x = 88
-			var y = 91
-			var z = distanceToMouseLeft
+		
+		## Right
+		var maxLengthRight = $Skeleton2D/Body/RightShoulder.get_length() + $Skeleton2D/Body/RightShoulder/RightElbow.get_length()
+		var boneLengthRight = 91 ## Base bone length for left arm
+		var scaleValueRight = 91
+		
+		var distanceToMouseRight = ($Skeleton2D/Body/RightShoulder.position).distance_to(mouseVector)
+		var angleToRight = atan((mouseVector.y-72)/(mouseVector.x)) + (PI if mouseVector.x>=0 else 0)
+		if(distanceToMouseRight >= maxLengthRight):
+			$Skeleton2D/Body/RightShoulder.rotation = angleToRight + PI/2
+			$Skeleton2D/Body/RightShoulder/RightElbow.rotation = 0
+			$Skeleton2D/Body/RightShoulder.scale = Vector2.ONE
+		else:
+			scaleValueRight = ( boneLengthRight / 2 ) * pow( 1.00388, distanceToMouseRight ) 
+			$Skeleton2D/Body/RightShoulder.rotation = -asin((distanceToMouseRight/2)/scaleValueRight) + angleToRight + PI## Shoulder
+			$Skeleton2D/Body/RightShoulder/RightElbow.rotation = -acos((distanceToMouseRight/2)/scaleValueRight)*2 ## Elbow
 			
-			
-			## Shoulder
-			#$Skeleton2D/Body/LeftShoulder.rotation = 0
-			
-			var X = acos(((x*x) - (z*z) - (y*y)) / (-2 * z * y)) ## Angle for Shoulder
-			var Z = asin(z * sin(X) / x) ## Angle of the length
-			
-			#$Skeleton2D/Body/LeftShoulder.rotation = X + $Skeleton2D/Body/LeftShoulder.position.angle_to(mouseVector) - PI/2
-			$Skeleton2D/Body/LeftShoulder.rotation = acos((z/2)/91) + $Skeleton2D/Body/LeftShoulder.position.angle_to(mouseVector) - PI/2
-			
-			## Elbow
-			if(distanceToMouseLeft > 91 || true):
-				#$Skeleton2D/Body/LeftShoulder/LeftElbow.rotation = acos(((z*z) - (x*x) - (y*y)) / (-2 * x * y))
-				
-				#$Skeleton2D/Body/LeftShoulder/LeftElbow.rotation = asin(x/(sin(X) * z))
-				
-				$Skeleton2D/Body/LeftShoulder/LeftElbow.rotation = asin((z/2)/91)*2
-				
-			else:
-				pass
-				
-			pass
+			## Change size of thing
+			$Skeleton2D/Body/RightShoulder.scale.y = scaleValueRight/boneLengthRight
 		
 		## Eccential:
 		lastMouseVector = mouseVector
