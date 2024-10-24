@@ -73,6 +73,9 @@ rest = Transform2D(1, 0, 0, 1, 0, 0)
 [node name="LeftShoulder" type="Bone2D" parent="Skeleton2D/Body"]
 position = Vector2(-6, -70)
 rest = Transform2D(1, 0, 0, 1, -6, -70)
+auto_calculate_length_and_angle = false
+length = 88.0
+bone_angle = -90.0
 
 [node name="LeftElbow" type="Bone2D" parent="Skeleton2D/Body/LeftShoulder"]
 position = Vector2(0, -88)

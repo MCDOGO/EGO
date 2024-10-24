@@ -9,10 +9,15 @@ extends Node2D
 var mouseVector : Vector2
 var lastMouseVector : Vector2
 
+var toggle = true
+
 func _process(delta: float) -> void:
 	
 	if(Input.is_action_pressed("Fire")):
 		mouseVector = get_global_mouse_position()
+	if(Input.is_action_just_pressed("Dash")):
+		toggle = !toggle
+		print("foire")
 	
 	if(lastMouseVector != mouseVector):
 		
@@ -23,18 +28,25 @@ func _process(delta: float) -> void:
 		
 		var distanceToMouseLeft = $Skeleton2D/Body/LeftShoulder.position.distance_to( mouseVector )
 		var angleToLeft = atan( ( mouseVector.y + 72 ) / ( mouseVector.x ) ) + ( PI if mouseVector.x >= 0 else 0 )
+		
 		if(distanceToMouseLeft >= maxLengthLeft):
+		
 			$Skeleton2D/Body/LeftShoulder.rotation = angleToLeft - PI / 2
 			$Skeleton2D/Body/LeftShoulder/LeftElbow.rotation = 0
-			$Skeleton2D/Body/LeftShoulder.scale = Vector2.ONE
+			
+			$Skeleton2D/Body/LeftShoulder.rest.y.y = 1
+			$Skeleton2D/Body/LeftShoulder/LeftElbow.position = Vector2(0,-boneLengthLeft)
+			
 		else:
+			
 			scaleValueLeft = ( boneLengthLeft / 2 ) * pow( 1.00388, distanceToMouseLeft ) 
 			$Skeleton2D/Body/LeftShoulder.rotation = asin( ( distanceToMouseLeft / 2 ) / scaleValueLeft ) + angleToLeft + PI ## Shoulder
 			$Skeleton2D/Body/LeftShoulder/LeftElbow.rotation = acos( ( distanceToMouseLeft / 2 ) / scaleValueLeft ) * 2 ## Elbow
-			print(scaleValueLeft)
-			## Change size of thing
-			$Skeleton2D/Body/LeftShoulder.scale.y = scaleValueLeft/boneLengthLeft
 			
+			## Change size of thing
+			$Skeleton2D/Body/LeftShoulder.rest.y.y =  (boneLengthLeft/scaleValueLeft)
+			if(toggle):
+				$Skeleton2D/Body/LeftShoulder/LeftElbow.position = Vector2(0, -scaleValueLeft)
 		
 		## Right
 		var maxLengthRight = $Skeleton2D/Body/RightShoulder.get_length() + $Skeleton2D/Body/RightShoulder/RightElbow.get_length()
