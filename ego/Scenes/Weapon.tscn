@@ -1,20 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://bs6doa450qfbv"]
+[gd_scene load_steps=3 format=3 uid="uid://bs6doa450qfbv"]
 
 [ext_resource type="Script" path="res://Scenes/weapon.gd" id="1_h30bf"]
+[ext_resource type="Resource" uid="uid://csnh6sevj4iau" path="res://Resources/Weapons/Heavy Weapons/Two Handed/Betsy.tres" id="2_4n6p5"]
 
 [node name="Weapon" type="Node2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_h30bf")
+weapon = ExtResource("2_4n6p5")
 
-[node name="Attachments" type="Node" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -99
+offset_left = -21.0
+offset_top = -40.5
+offset_right = 19.0
+offset_bottom = 39.5
 
-[node name="Mag" type="Sprite2D" parent="Attachments"]
+[node name="Attachments" type="Node2D" parent="."]
 
-[node name="Sight" type="Sprite2D" parent="Attachments"]
+[node name="Weapon" type="Sprite2D" parent="."]
 
-[node name="Muzzle" type="Sprite2D" parent="Attachments"]
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 
-[node name="Butt" type="Sprite2D" parent="Attachments"]
-
-[node name="Ammunition" type="Sprite2D" parent="Attachments"]
-
-[node name="Gun Sprite" type="Sprite2D" parent="."]
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(-20, 0, 20, 0)
+closed = true
+width = 0.1
+default_color = Color(0, 0, 0, 1)

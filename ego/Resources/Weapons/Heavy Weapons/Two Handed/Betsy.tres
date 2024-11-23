@@ -1,0 +1,133 @@
+[gd_resource type="Resource" script_class="Weapon_Gun" load_steps=8 format=3 uid="uid://csnh6sevj4iau"]
+
+[ext_resource type="Script" path="res://Resources/Weapons/Weapon_Attachment.gd" id="1_lrd8b"]
+[ext_resource type="Script" path="res://Resources/Weapons/Weapon Gun.gd" id="3_carrv"]
+
+[sub_resource type="Resource" id="Resource_7mwwl"]
+script = ExtResource("1_lrd8b")
+sprite = "res://Assets/Weapons/Two Handed/Betsy/ChamberBack.png"
+offset = Vector2(0, -10.5)
+rotation = 0
+name = ""
+isStatic = true
+canScale = false
+z_index = -2
+
+[sub_resource type="Resource" id="Resource_hwm7y"]
+script = ExtResource("1_lrd8b")
+sprite = "res://Assets/Weapons/Two Handed/Betsy/ReleaseBullet.png"
+offset = Vector2(0, -10.5)
+rotation = 0
+name = "chmb"
+isStatic = false
+canScale = false
+z_index = -1
+
+[sub_resource type="Resource" id="Resource_mrfxn"]
+script = ExtResource("1_lrd8b")
+sprite = "res://Assets/Weapons/Two Handed/Betsy/Scope1.png"
+offset = Vector2(0, -10.5)
+rotation = 0
+name = ""
+isStatic = true
+canScale = false
+z_index = 1
+
+[sub_resource type="Resource" id="Resource_kforv"]
+script = ExtResource("1_lrd8b")
+sprite = "res://Assets/Weapons/Two Handed/Betsy/Stand1.png"
+offset = Vector2(0, -18)
+rotation = 0
+name = ""
+isStatic = true
+canScale = false
+z_index = 1
+
+[sub_resource type="Resource" id="Resource_it8x3"]
+script = ExtResource("1_lrd8b")
+sprite = "res://Assets/Weapons/Two Handed/Betsy/Chamberer.png"
+offset = Vector2(2.5, -9.5)
+rotation = 0
+name = "load"
+isStatic = false
+canScale = false
+z_index = 0
+
+[resource]
+script = ExtResource("3_carrv")
+charge_weapon = false
+multi_projectile = false
+burst = false
+explossive = false
+automatic = false
+heavy_weapon = true
+max_ammo = 4
+weapon_type = 2
+fire_mode = 4
+fire_rate = 0.7
+magizine = true
+reload_speed = 2.0
+chamber_bullet = true
+chamber_speed = 0.7
+laser = true
+piercing = 1.0
+recoil_severity = 0.25
+recoil_movenmnet_scale = 1.0
+projectile_speed = 0
+projectile_speed_falloff = 0.0001
+max_distance = -1
+y_offset = 20
+x_offset = 0
+explossive_damage = 0
+explossive_radius = 0
+explossive_duration = 0.0
+explossive_smoke = false
+ready_or_release = false
+ready_timer = 0.0
+var_max_timer = 0.0
+full_charge_damage = 1.0
+full_charge_crit_chnc = 1.0
+full_charge_crit_dmg = 1.0
+over_charge_timer = 0.0
+over_charge_damage = 1.0
+projectile_ammount = 0
+burst_spread = 10
+time_between = 0.1
+groups = 1
+max_reserves = 12
+projectile = null
+laser_color = Color(0.654793, 0.617599, 0.0307359, 1)
+projectile_hit_box_size = Vector2i(12, 6)
+casing = "res://Assets/Weapons/Two Handed/Betsy/Eject.png"
+eject_casing_left = true
+magazine_or_projectile = "res://Assets/Weapons/Two Handed/Betsy/Magazine1.png"
+screen_shake_per = 0.2
+screen_shake_max = 0.6
+smoke_severity = 0.1
+spark_severity = 0.1
+Attachments = Array[ExtResource("1_lrd8b")]([SubResource("Resource_7mwwl"), SubResource("Resource_hwm7y"), SubResource("Resource_mrfxn"), SubResource("Resource_kforv"), SubResource("Resource_it8x3")])
+name = "Betsy"
+ID = 1
+sprite = "res://Assets/Weapons/Two Handed/Betsy/Sniper.png"
+sprite_offset = Vector2i(0, -14)
+muzzle_position = Vector2i(0, 28)
+damage = 5
+crit_chance = 10
+crit_multiplier = 2.0
+armor_penetration_chance = 0
+armor_penetration_amount = 0
+silent = false
+status_chance = 0
+status = 0
+status_damage = 0
+status_duration = 0.0
+min_distance_tp = 400
+comfortable_distance_tp = 350
+max_distance_tp = 300
+melee_rush_tp = 100
+leftHandRest = Vector2(0, 0)
+leftRot = 0
+leftAnim = 0
+rightHandRest = Vector2(0, 0)
+rightRot = 0
+rightAnim = 0

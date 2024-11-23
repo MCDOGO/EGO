@@ -1,8 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://6o3tcdqrf4og"]
+[gd_scene load_steps=20 format=3 uid="uid://6o3tcdqrf4og"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_ydrnv"]
 [ext_resource type="Script" path="res://Resources/Weapons/Weapon Gun.gd" id="2_edceu"]
 [ext_resource type="Texture2D" uid="uid://tadd4hbrfjoc" path="res://Assets/Weapons/Akimbo/Pistols.png" id="2_erirs"]
+[ext_resource type="Script" path="res://Resources/Weapons/Weapon_Attachment.gd" id="2_owaov"]
+[ext_resource type="Script" path="res://Resources/Weapons/Weapon_Animation.gd" id="3_38atj"]
 [ext_resource type="Texture2D" uid="uid://cd3dpy0ddrkda" path="res://Assets/Player Sprites Base/Akimbo/AkimboL.png" id="4_7g4yo"]
 [ext_resource type="Texture2D" uid="uid://iwxp1ervak76" path="res://Assets/Player Sprites Base/Idle/IdleL.png" id="5_0kelg"]
 [ext_resource type="Texture2D" uid="uid://oio1iy5e2hfn" path="res://Assets/Player Sprites Base/Head.png" id="5_bxqru"]
@@ -73,6 +75,7 @@ ID = 0
 sprite = "res://Assets/Weapons/Two Handed/LMG.png"
 sprite_offset = Vector2i(0, 0)
 muzzle_position = Vector2i(0, 0)
+attachments = Array[ExtResource("2_owaov")]([])
 damage = 5
 crit_chance = 10
 crit_multiplier = 2.0
@@ -87,6 +90,17 @@ min_distance_tp = 400
 comfortable_distance_tp = 350
 max_distance_tp = 300
 melee_rush_tp = 100
+leftHandRest = Vector2(0, 0)
+leftRot = 0
+leftAnim = 0
+rightHandRest = Vector2(0, 0)
+rightRot = 0
+rightAnim = 0
+reloadAnim = Array[ExtResource("3_38atj")]([])
+reloadPhasePhases = Array[int]([])
+ejectMagPhase = 0
+loadProjectileAnim = Array[ExtResource("3_38atj")]([])
+bulletLoadedPhase = 0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5vvl4"]
 animations = [{

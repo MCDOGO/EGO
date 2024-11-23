@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfh1n5ce2fu8q"]
+[gd_scene load_steps=3 format=3 uid="uid://bfh1n5ce2fu8q"]
 
 [ext_resource type="Script" path="res://Scenes/UI/starting_menu.gd" id="1_g4s37"]
+[ext_resource type="PackedScene" uid="uid://djm85ngw4xsey" path="res://Scenes/Test/RemoteTransformTest.tscn" id="2_hrjpv"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -49,6 +50,9 @@ text = "LODOUT"
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "EXIT"
+
+[node name="RemoteTransformTest" parent="." instance=ExtResource("2_hrjpv")]
+position = Vector2(407, 179)
 
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Lodout" to="." method="_on_lodout_pressed"]

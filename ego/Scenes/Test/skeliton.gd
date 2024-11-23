@@ -14,58 +14,79 @@ var toggle = true
 func _process(delta: float) -> void:
 	
 	if(Input.is_action_pressed("Fire")):
-		mouseVector = get_global_mouse_position()
+		mouseVector = to_local(get_global_mouse_position())
 	if(Input.is_action_just_pressed("Dash")):
 		toggle = !toggle
-		print("foire")
 	
 	if(lastMouseVector != mouseVector):
 		
 		## Left
-		var maxLengthLeft = $Skeleton2D/Body/LeftShoulder.get_length() + $Skeleton2D/Body/LeftShoulder/LeftElbow.get_length()
-		var boneLengthLeft = 91 ## Base bone length for left arm
-		var scaleValueLeft = 91 ## The calculated scale value to use in calculations
+		var segmentLength = $Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation/Forearm.get_length() + $Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation/Forearm/Wrist.get_length() + $Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation/Forearm/Wrist/Hand.get_length()
+		var armLength =$Skeleton2D/Body/LeftShoulder/Bicept.get_length() + $Skeleton2D/Body/LeftShoulder/Bicept/Elbow.get_length() + $Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation.get_length() + segmentLength
+		var scaleValue = segmentLength
 		
 		var distanceToMouseLeft = $Skeleton2D/Body/LeftShoulder.position.distance_to( mouseVector )
-		var angleToLeft = atan( ( mouseVector.y + 72 ) / ( mouseVector.x ) ) + ( PI if mouseVector.x >= 0 else 0 )
+		var angleToLeft = atan( ( mouseVector.y - $Skeleton2D/Body/LeftShoulder.position.y ) / ( mouseVector.x ) ) + ( PI if mouseVector.x >= 0 else 0 )
 		
-		if(distanceToMouseLeft >= maxLengthLeft):
 		
+		if(distanceToMouseLeft >= armLength):
+			
+			## Restors things to normal
 			$Skeleton2D/Body/LeftShoulder.rotation = angleToLeft - PI / 2
-			$Skeleton2D/Body/LeftShoulder/LeftElbow.rotation = 0
+			$Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation.rotation = 0
 			
-			$Skeleton2D/Body/LeftShoulder.rest.y.y = 1
-			$Skeleton2D/Body/LeftShoulder/LeftElbow.position = Vector2(0,-boneLengthLeft)
+			$Skeleton2D/Body/LeftShoulder/Bicept.scale.y = 1
+			$Skeleton2D/Body/LeftShoulder/Bicept/Elbow.scale.y = 1
+			$Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation/Forearm.scale.y = 1
+			$Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation/Forearm/Wrist.scale.y = 1
 			
 		else:
 			
-			scaleValueLeft = ( boneLengthLeft / 2 ) * pow( 1.00388, distanceToMouseLeft ) 
-			$Skeleton2D/Body/LeftShoulder.rotation = asin( ( distanceToMouseLeft / 2 ) / scaleValueLeft ) + angleToLeft + PI ## Shoulder
-			$Skeleton2D/Body/LeftShoulder/LeftElbow.rotation = acos( ( distanceToMouseLeft / 2 ) / scaleValueLeft ) * 2 ## Elbow
+			scaleValue = ( segmentLength / 3 ) * pow( 1.0227, distanceToMouseLeft ) ## This gets the desired length of the segments
+			$Skeleton2D/Body/LeftShoulder.rotation = asin( ( distanceToMouseLeft / 2 ) / scaleValue ) + angleToLeft + PI ## Shoulder
+			$Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation.rotation = acos( ( distanceToMouseLeft / 2 ) / scaleValue ) * 2 ## Elbow
+			## Math explination:
+			##	Grabs the angle by assuming the two segmants are of equal length, so it can split the distance to mouse in half and treat it as two right angles
 			
 			## Change size of thing
-			$Skeleton2D/Body/LeftShoulder.rest.y.y =  (boneLengthLeft/scaleValueLeft)
-			if(toggle):
-				$Skeleton2D/Body/LeftShoulder/LeftElbow.position = Vector2(0, -scaleValueLeft)
+			$Skeleton2D/Body/LeftShoulder/Bicept.scale.y = scaleValue/(armLength-segmentLength) #/ ($Skeleton2D/Body/LeftShoulder/Bicept.get_length())/(armLength-segmentLength))
+			$Skeleton2D/Body/LeftShoulder/Bicept/Elbow.scale.y =  1 / $Skeleton2D/Body/LeftShoulder/Bicept.scale.y
+			$Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation/Forearm.scale.y = scaleValue/segmentLength #/ ($Skeleton2D/Body/LeftShoulder/Bicept.get_length())/(armLength-segmentLength))
+			$Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation/Forearm/Wrist.scale.y =  1 / $Skeleton2D/Body/LeftShoulder/Bicept/Elbow/Rotation/Forearm.scale.y
+			## Math explination:
+			##	Calculates the scale ratio, then multiplies it by the ratio of the scaled bone to the bone segment, 
+			##	Then the child bone of the scaled object is conversly scaled to balance the rotation scale problem.
+			
 		
-		## Right
-		var maxLengthRight = $Skeleton2D/Body/RightShoulder.get_length() + $Skeleton2D/Body/RightShoulder/RightElbow.get_length()
-		var boneLengthRight = 91 ## Base bone length for left arm
-		var scaleValueRight = 91
+		## Left		
+		var distanceToMouseRight = $Skeleton2D/Body/RightShoulder.position.distance_to( mouseVector )
+		var angleToRight = atan( ( mouseVector.y - $Skeleton2D/Body/RightShoulder.position.y ) / ( mouseVector.x ) ) + ( PI if mouseVector.x >= 0 else 0 )
 		
-		var distanceToMouseRight = ($Skeleton2D/Body/RightShoulder.position).distance_to(mouseVector)
-		var angleToRight = atan((mouseVector.y-72)/(mouseVector.x)) + (PI if mouseVector.x>=0 else 0)
-		if(distanceToMouseRight >= maxLengthRight):
-			$Skeleton2D/Body/RightShoulder.rotation = angleToRight + PI/2
-			$Skeleton2D/Body/RightShoulder/RightElbow.rotation = 0
-			$Skeleton2D/Body/RightShoulder.scale = Vector2.ONE
+		
+		if(distanceToMouseRight >= armLength):
+			
+			## Restors things to normal
+			$Skeleton2D/Body/RightShoulder.rotation = angleToRight - PI / 2
+			$Skeleton2D/Body/RightShoulder/Bicept/Elbow/Rotation.rotation = 0
+			
+			$Skeleton2D/Body/RightShoulder/Bicept.scale.y = 1
+			$Skeleton2D/Body/RightShoulder/Bicept/Elbow.scale.y = 1
+			$Skeleton2D/Body/RightShoulder/Bicept/Elbow/Rotation/Forearm.scale.y = 1
+			$Skeleton2D/Body/RightShoulder/Bicept/Elbow/Rotation/Forearm/Wrist.scale.y = 1
+			
 		else:
-			scaleValueRight = ( boneLengthRight / 2 ) * pow( 1.00388, distanceToMouseRight ) 
-			$Skeleton2D/Body/RightShoulder.rotation = -asin((distanceToMouseRight/2)/scaleValueRight) + angleToRight + PI## Shoulder
-			$Skeleton2D/Body/RightShoulder/RightElbow.rotation = -acos((distanceToMouseRight/2)/scaleValueRight)*2 ## Elbow
+			
+			scaleValue = ( segmentLength / 3 ) * pow( 1.0227, distanceToMouseRight ) ## This gets the desired length of the segments
+			$Skeleton2D/Body/RightShoulder.rotation = asin( ( distanceToMouseRight / 2 ) / scaleValue) + angleToRight + PI ## Shoulder
+			$Skeleton2D/Body/RightShoulder/Bicept/Elbow/Rotation.rotation = acos( ( distanceToMouseRight / 2 ) / scaleValue) * 2 ## Elbow
+			## Math explination:
+			##	Grabs the angle by assuming the two segmants are of equal length, so it can split the distance to mouse in half and treat it as two right angles
 			
 			## Change size of thing
-			$Skeleton2D/Body/RightShoulder.scale.y = scaleValueRight/boneLengthRight
-		
-		## Eccential:
-		lastMouseVector = mouseVector
+			$Skeleton2D/Body/RightShoulder/Bicept.scale.y = scaleValue/(armLength-segmentLength) #/ ($Skeleton2D/Body/LeftShoulder/Bicept.get_length())/(armLength-segmentLength))
+			$Skeleton2D/Body/RightShoulder/Bicept/Elbow.scale.y =  1 / $Skeleton2D/Body/RightShoulder/Bicept.scale.y
+			$Skeleton2D/Body/RightShoulder/Bicept/Elbow/Rotation/Forearm.scale.y = scaleValue/segmentLength #/ ($Skeleton2D/Body/LeftShoulder/Bicept.get_length())/(armLength-segmentLength))
+			$Skeleton2D/Body/RightShoulder/Bicept/Elbow/Rotation/Forearm/Wrist.scale.y =  1 / $Skeleton2D/Body/RightShoulder/Bicept/Elbow/Rotation/Forearm.scale.y
+			## Math explination:
+			##	Calculates the scale ratio, then multiplies it by the ratio of the scaled bone to the bone segment, 
+			##	Then the child bone of the scaled object is conversly scaled to balance the rotation scale problem.

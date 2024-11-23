@@ -41,3 +41,14 @@ class_name Weapon_Parent
 @export var comfortable_distance_tp : int = 350 ## Distance until the enemy will comfortably stay still and fire (maybe strafe if desired)
 @export var max_distance_tp : int = 300 ## Distance until the enemy will want to leave
 @export var melee_rush_tp : int = 100 ## Distance melee enemies will need to be to melee
+
+
+@export_subgroup("Animation")
+## Get phases by getting length
+@export var leftHandRest : Vector2
+@export_range(0,360) var leftRot := 0
+@export_range(0,3) var leftAnim := 0
+
+@export var rightHandRest : Vector2
+@export_range(0,360) var rightRot := 0
+@export_range(0,3) var rightAnim := 0
