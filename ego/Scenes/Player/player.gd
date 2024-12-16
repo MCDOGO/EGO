@@ -4,6 +4,9 @@ class_name Player
 ## Constant/Final Variables
 const ballin = true
 
+@export var animDebug := false
+
+
 ## Internal Nodes
 @onready var fireRateRefresh = $"Timers/Fire Rate Refresh"
 @onready var reloadSpeed = $"Timers/Reload Speed"
@@ -62,12 +65,19 @@ func _ready():
 	SignalBus.enemy_damaged.connect(enemy_hurt)
 	#SignalBus.enemy_killed.connect(enemy_killed)
 	## Set Up
-	set_up_player()
+	$CanvasGroup.weapon = weaponOveride
+	$CanvasGroup/Weapon.weapon = weaponOveride
+	$CanvasGroup/Weapon.set_up()
+	#set_up_player()
 
 
 ## Will set all variables to what they are ment to be
 func set_up_player():
 	if(weaponOveride != null):
+		
+		$CanvasGroup.weapon = weaponOveride
+		$CanvasGroup/Weapon.weapon = weaponOveride
+		
 		primary_weapon = weaponOveride
 		
 		MAXPRIMARYAMMO = primary_weapon.max_ammo
@@ -119,72 +129,51 @@ func _physics_process(_delta):
 	direction.normalized()
 	velocity = direction * SPEED
 	
-	
-	
-	## Inputs
-	#if((Input.is_action_pressed("Fire")) && 
-	#fireRateRefresh.is_stopped() && reloadSpeed.is_stopped()): 
-		### Make it so it detects auto or not auto
-		#if(active_weapon is Throwable_Weapon):
-			#attack()
-		#else:
-			#attack()
-	#elif(false && Input.is_action_pressed("Melee")):
-		#weapon_swap(melee_weapon)
-		#if(active_weapon is Throwable_Weapon):
-			#attack()
-		#else:
-			#attack()
-		##weapon_swap(Melee_Weapon)
-		##attack(false)
-	#elif(Input.is_action_just_pressed("Reload") && reloadSpeed.is_stopped()):
-		#if(active_weapon is Primary_Weapon && (primaryAmmo != MAXPRIMARYAMMO)):
-			#reload()
-		#elif(active_weapon is Heavy_Weapon && (heavyAmmo != MAXHEAVYAMMO)):
-			#reload()
-	#elif(Input.is_action_pressed("Throwable")):
-		#if(!active_weapon is Throwable_Weapon):
-			#weapon_swap(throwable_weapon)
-		#else:
-			#weapon_swap(primary_weapon)
-	#elif(Input.is_action_just_pressed("Swap Gun")):
-		#if(!reloadSpeed.is_stopped()):
-			#reloadCancel = true
-			#reloadSpeed.stop()
-		#if(!active_weapon is Heavy_Weapon):
-			#weapon_swap(heavy_weapon)
-		#else:
-			#weapon_swap(primary_weapon)
-	#
-	if($"Timers/Swinging Speed".is_stopped() && $Timers/Attacking.is_stopped()):
+	if($"Timers/Swinging Speed".is_stopped() && $Timers/Attacking.is_stopped() && !animDebug):
+		
+		## Opens the menu of menus
+		if(Input.is_action_just_pressed("Menu")):
+			pass
 		
 		## For attacking with melee weapon
-		if(Input.is_action_pressed("Melee")):
-			melee_attack(true) ## Will be false if heavy attack is melee based
+		elif(Input.is_action_pressed("Melee")):
+			#melee_attack(true) ## Will be false if heavy attack is melee based
+			pass
 		
 		## Swap to throwable weapon
-		elif(Input.is_action_just_pressed("Throwable")):
+		elif(Input.is_action_just_pressed("Swap To Throwable")):
 			throwable_swap() ## Will swap to throwable weapon
 		
 		## Reloads active weapon
 		elif(Input.is_action_just_pressed("Reload")):
 			reload() # Rework reload script
 		
-		## 
+		## Swaps active firearm
 		elif(Input.is_action_just_pressed("Swap Gun")):
 			weapon_swap()
 			pass
 		
-		## For attacking with active weapon
-		elif(((Input.is_action_pressed("Fire") && active_weapon.fire_mode < 2) || (Input.is_action_just_pressed("Fire")))
-		 && fireRateRefresh.is_stopped() && reloadSpeed.is_stopped()): ## And melee cooldown 1, and not swinging
-			#attack() # Rework attack script
+		## Opens the players menu panel (List of all players)
+		if(Input.is_action_pressed("Players Menu")):
+			print("Player Menu")
 			pass
+			
+		
+		
+		## For attacking with active weapon
+		#elif(((Input.is_action_pressed("Fire") && active_weapon.fire_mode < 2) || (Input.is_action_just_pressed("Fire")))
+		# && fireRateRefresh.is_stopped() && reloadSpeed.is_stopped()): ## And melee cooldown 1, and not swinging
+			#attack() # Rework attack script
+		#	pass
 		
 	
 	
 	## Makes you look at cursor
-	look_at(get_global_mouse_position())
+	if(!animDebug):
+		look_at(get_global_mouse_position())
+		rotate(PI/2)
+	else:
+		$Camera.zoom = Vector2(2, 2)
 	
 	## Applies movement
 	move_and_slide()
@@ -270,7 +259,7 @@ func attack():
 ## Swaps weapon sprites
 func sprite_swap(weapon: Weapon_Parent):
 	
-	$Weapon.texture = load(weapon.sprite)
+	## NEEDS TO BE COMPLETLY RE DONE
 	
 	if(weapon is Melee_Weapon): ## Swap to melee attack animation
 		if(weapon.single_handed):

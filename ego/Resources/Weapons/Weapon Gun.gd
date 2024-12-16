@@ -3,11 +3,13 @@ class_name Weapon_Gun
 
 
 @export var charge_weapon: bool = false
-@export var multi_projectile: bool = false
-@export var burst: bool = false
+@export var multi_projectile: bool = false ## Shotguns n stuff
+@export var burst: bool = false ## Yippee
 @export var explossive: bool = false
-@export var automatic: bool = false
+@export var automatic: bool = false ## Can be active with other options
 @export var heavy_weapon: bool = false
+
+@export var single_fire_option: bool = true ## Has an option to swap to single fire
 
 @export var max_ammo: int ## Ammo in magazine
 
@@ -31,9 +33,6 @@ class_name Weapon_Gun
 @export var projectile_speed: int = 1200
 @export_range(0,1) var projectile_speed_falloff: float = 0.0001 ## How quickly projectiles should slow down
 @export var max_distance: int = -1 ## In distance (negative for no limit but time)
-
-@export var y_offset: int = 20 ## How far to offset the weapon so the projectiles come out of the tip of the gun
-
 
 @export_group("Weapon Type Based")
 
@@ -64,12 +63,15 @@ class_name Weapon_Gun
 @export var groups : int = 1 ## Groups of projectile Shots per burst
 
 @export_subgroup("Heavy Weapon")
-@export var max_reserves: int
+@export var max_reserves: int ## Messure in magazines, or ammunition
+@export var resserve_grant_pickup: int ## Resserves given back on heavy ammo pickup
 
 @export_group("Visuals")
-@export_file("*.png") var projectile ## Sprite for projectile (Laser will not need one)
-@export_color_no_alpha var laser_color
-@export var projectile_hit_box_size: Vector2i = Vector2i(12,6) ## The x will still be necisarry for lasers (Width of projectile)
+@export_color_no_alpha var projectile_color
+@export_range(0,1) var color_lerp : float = 0.01
+@export var projectile_fade_speed : float = 0.1
+
+@export var projectile_hit_box_width: float = 6 ## The x will still be necisarry for lasers (Width of projectile)
 @export_file("*.png") var casing ## Sprite for casing or magazine
 @export var eject_casing_left: bool = false ## Direction that casings will be ejected
 @export_file("*.png") var magazine_or_projectile ## Sprite for casing or magazine
@@ -80,7 +82,7 @@ class_name Weapon_Gun
 @export_range(0,2) var screen_shake_max: float = 0.6 ## Max screen shake before it stops adding over
 @export_range(0,2) var smoke_severity: float = 0.1
 @export_range(0,2) var spark_severity: float = 0.1
-
+@export_range(0,2) var flash_severity: float = 0.1 ## Flashes the color of the projectile
 
 #export_group("Sounds")
 # @export_file() var fireingSound

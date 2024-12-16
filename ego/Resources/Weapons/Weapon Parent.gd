@@ -8,8 +8,9 @@ class_name Weapon_Parent
 @export var name: String
 @export var ID: int
 @export_file("*.png") var sprite
-@export var sprite_offset: Vector2i
-@export var muzzle_position: Vector2i
+@export var sprite_offset: Vector2
+@export var sprite_positioning: Vector2 = Vector2.ZERO
+@export var muzzle_position: Vector2
 
 
 @export_subgroup("Damage and Critical")
@@ -46,9 +47,14 @@ class_name Weapon_Parent
 @export_subgroup("Animation")
 ## Get phases by getting length
 @export var leftHandRest : Vector2
-@export_range(0,360) var leftRot := 0
-@export_range(0,3) var leftAnim := 0
+@export_range(-180,180) var leftRot := 0
+@export_range(0,15) var leftAnim := 0
 
 @export var rightHandRest : Vector2
-@export_range(0,360) var rightRot := 0
-@export_range(0,3) var rightAnim := 0
+@export_range(-180,180) var rightRot := 0
+@export_range(0,15) var rightAnim := 0
+
+## Gun Only
+@export var magazineLocation : Vector2
+@export var movenmentMaxDrag : Vector2 ## The ammount of drag horizontally and vertically the weapon is allowed to have when moving
+@export var maxRecoilDrag : int = 0 ## The max ammount the weapon is allowed to kick back vetically when firing

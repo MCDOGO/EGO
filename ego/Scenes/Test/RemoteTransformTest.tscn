@@ -110,14 +110,6 @@ script = ExtResource("1_m6abx")
 texture = "res://Assets/TestRig.png"
 weapon = ExtResource("2_s0bqr")
 
-[node name="Timers" type="Node" parent="."]
-
-[node name="DurationNext" type="Timer" parent="Timers"]
-one_shot = true
-
-[node name="AnimDuration" type="Timer" parent="Timers"]
-one_shot = true
-
 [node name="CanvasGroup" type="CanvasGroup" parent="."]
 z_index = 99
 z_as_relative = false

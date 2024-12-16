@@ -1,249 +1,314 @@
-[gd_scene load_steps=20 format=3 uid="uid://6o3tcdqrf4og"]
+[gd_scene load_steps=16 format=3 uid="uid://6o3tcdqrf4og"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_ydrnv"]
-[ext_resource type="Script" path="res://Resources/Weapons/Weapon Gun.gd" id="2_edceu"]
-[ext_resource type="Texture2D" uid="uid://tadd4hbrfjoc" path="res://Assets/Weapons/Akimbo/Pistols.png" id="2_erirs"]
-[ext_resource type="Script" path="res://Resources/Weapons/Weapon_Attachment.gd" id="2_owaov"]
-[ext_resource type="Script" path="res://Resources/Weapons/Weapon_Animation.gd" id="3_38atj"]
-[ext_resource type="Texture2D" uid="uid://cd3dpy0ddrkda" path="res://Assets/Player Sprites Base/Akimbo/AkimboL.png" id="4_7g4yo"]
-[ext_resource type="Texture2D" uid="uid://iwxp1ervak76" path="res://Assets/Player Sprites Base/Idle/IdleL.png" id="5_0kelg"]
-[ext_resource type="Texture2D" uid="uid://oio1iy5e2hfn" path="res://Assets/Player Sprites Base/Head.png" id="5_bxqru"]
-[ext_resource type="Texture2D" uid="uid://cl4frboyh7iu0" path="res://Assets/Player Sprites Base/Two Handed/TwoHandedL.png" id="6_vgfoc"]
-[ext_resource type="Texture2D" uid="uid://dcendx1p22r4i" path="res://Assets/Player Sprites Base/Akimbo/AkimboR.png" id="8_77wbd"]
-[ext_resource type="Texture2D" uid="uid://d3r7t6ss6qwuy" path="res://Assets/Player Sprites Base/Idle/IdleR.png" id="9_0qwky"]
-[ext_resource type="Texture2D" uid="uid://ddxo8d2dgja1" path="res://Assets/Player Sprites Base/One Handed/OneHandedR.png" id="10_23rfc"]
-[ext_resource type="Texture2D" uid="uid://dfs8vvsyyrq3f" path="res://Assets/Player Sprites Base/Two Handed/TwoHandedR.png" id="11_ny6jf"]
+[ext_resource type="Shader" path="res://Scenes/Test/RemoteTransformTest.gdshader" id="4_eiyvw"]
+[ext_resource type="Script" path="res://Scenes/Player/canvas_group.gd" id="5_86qsm"]
+[ext_resource type="Script" path="res://Scenes/Test/sprites.gd" id="5_ervay"]
+[ext_resource type="Texture2D" uid="uid://ca4bippspm4k3" path="res://Assets/TestRig.png" id="6_lp472"]
+[ext_resource type="Script" path="res://Scenes/weapon.gd" id="7_ygags"]
+[ext_resource type="Script" path="res://Scenes/Player/animation_player.gd" id="8_ilhod"]
+[ext_resource type="Resource" uid="uid://csnh6sevj4iau" path="res://Resources/Weapons/Heavy Weapons/Two Handed/Betsy.tres" id="8_j5r5q"]
 
-[sub_resource type="Resource" id="Resource_m6wq4"]
-script = ExtResource("2_edceu")
-charge_weapon = false
-multi_projectile = false
-burst = false
-explossive = false
-automatic = false
-heavy_weapon = false
-max_ammo = 0
-weapon_type = 2
-fire_mode = 0
-fire_rate = 0.0
-magizine = true
-reload_speed = 0.0
-laser = false
-recoil_severity = 0
-recoil_movenmnet_scale = 0
-projectile_speed = 1200
-projectile_speed_falloff = 0
-max_distance = -1
-y_offset = 20
-x_offset = 0
-explossive_damage = 0
-explossive_radius = 0
-explossive_duration = 0.0
-explossive_smoke = false
-valid_or_release = false
-valid_timer = 0.0
-var_max_timer = 0.0
-full_charge_damage = 1.0
-full_charge_crit_chnc = 1.0
-full_charge_crit_dmg = 1.0
-projectile_ammount = 0
-burst_spread = 10
-time_between = 0.1
-groups = 1
-max_reserves = 0
-projectile = null
-projectile_hit_box_size = Vector2i(12, 6)
-casing_or_mag = null
-eject_casing_left = false
-screen_shake_per = 20
-screen_shake_max = 60
-smoke_severity = 10
-spark_severity = 10
-magazines = Array[int]([])
-magazine_offset = Vector2i(0, 0)
-sights = Array[int]([])
-sight_offset = Vector2i(0, 0)
-muzzles = Array[int]([])
-muzzle_offset = Vector2i(0, 0)
-butts = Array[int]([])
-butt_offset = Vector2i(0, 0)
-show_projectile = false
-munitions = Array[int]([])
-ammunition_offset = Vector2i(0, 0)
-name = ""
-ID = 0
-sprite = "res://Assets/Weapons/Two Handed/LMG.png"
-sprite_offset = Vector2i(0, 0)
-muzzle_position = Vector2i(0, 0)
-attachments = Array[ExtResource("2_owaov")]([])
-damage = 5
-crit_chance = 10
-crit_multiplier = 2.0
-armor_penetration_chance = 0
-armor_penetration_amount = 0
-silent = false
-status_chance = 0
-status = 0
-status_damage = 0
-status_duration = 0.0
-min_distance_tp = 400
-comfortable_distance_tp = 350
-max_distance_tp = 300
-melee_rush_tp = 100
-leftHandRest = Vector2(0, 0)
-leftRot = 0
-leftAnim = 0
-rightHandRest = Vector2(0, 0)
-rightRot = 0
-rightAnim = 0
-reloadAnim = Array[ExtResource("3_38atj")]([])
-reloadPhasePhases = Array[int]([])
-ejectMagPhase = 0
-loadProjectileAnim = Array[ExtResource("3_38atj")]([])
-bulletLoadedPhase = 0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eyr1j"]
+shader = ExtResource("4_eiyvw")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 1.7
+shader_parameter/pattern = 2
+shader_parameter/inside = false
+shader_parameter/add_margins = false
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_5vvl4"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_7g4yo")
-}],
-"loop": false,
-"name": &"Akimbo",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_0kelg")
-}],
-"loop": false,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_0kelg")
-}],
-"loop": false,
-"name": &"One Handed",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": false,
-"name": &"One Handed Melee",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_vgfoc")
-}],
-"loop": false,
-"name": &"Two Handed",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": false,
-"name": &"Two Handed Melee",
-"speed": 5.0
-}]
+[sub_resource type="Animation" id="Animation_a272a"]
+resource_name = "Idle"
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_lba48"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_77wbd")
-}],
-"loop": false,
-"name": &"Akimbo",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("9_0qwky")
-}],
-"loop": false,
-"name": &"Idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("10_23rfc")
-}],
-"loop": false,
-"name": &"One Handed",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": false,
-"name": &"One Handed Melee",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("11_ny6jf")
-}],
-"loop": false,
-"name": &"Two Handed",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": false,
-"name": &"Two Handed Melee",
-"speed": 5.0
-}]
+[sub_resource type="Animation" id="Animation_hwsy8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasGroup/Sprites/LHandOffset/LeftHand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-67, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasGroup/Sprites/LHandOffset/LeftHand:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [16]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasGroup/Weapon:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ymik2"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_bxqru")
-}],
-"loop": true,
-"name": &"Head",
-"speed": 5.0
-}]
+[sub_resource type="Animation" id="Animation_7ahgy"]
+resource_name = "ReloadMag1"
+capture_included = true
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasGroup/Sprites/LHandOffset/LeftHand:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1, 0.1333, 0.266667, 0.3, 0.4, 0.433333, 0.566667, 0.6, 0.966667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 2,
+"values": [Vector2(0, 0), Vector2(0.5, 0), Vector2(1, 0), Vector2(1, 0), Vector2(-1, 0), Vector2(-1, 0), Vector2(-2, 0), Vector2(-2, 0), Vector2(1, 0), Vector2(1, 0), Vector2(0.5, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasGroup/Sprites/LHandOffset/LeftHand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasGroup/Sprites/LHandOffset/LeftHand:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.133333, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [19, 21, 16]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasGroup/Sprites/RHandOffset/RightHand:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasGroup/Sprites/RHandOffset/RightHand:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasGroup/Sprites/RHandOffset/RightHand:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CanvasGroup/Weapon:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.966667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(1.5, 2), Vector2(1.5, 2), Vector2(2, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n3qo7"]
+_data = {
+"Idle": SubResource("Animation_a272a"),
+"RESET": SubResource("Animation_hwsy8"),
+"ReloadMag1": SubResource("Animation_7ahgy")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8it3u"]
-radius = 13.0
+radius = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4uopn"]
-size = Vector2(16, 32)
+size = Vector2(30, 16)
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 512
 motion_mode = 1
 script = ExtResource("1_ydrnv")
-weaponOveride = SubResource("Resource_m6wq4")
+animDebug = true
+weaponOveride = ExtResource("8_j5r5q")
 
-[node name="Weapon" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
-texture = ExtResource("2_erirs")
-offset = Vector2(12, 0)
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+material = SubResource("ShaderMaterial_eyr1j")
+use_mipmaps = true
+script = ExtResource("5_86qsm")
+texture = "res://Assets/TestRig.png"
+weapon = ExtResource("8_j5r5q")
+debugFreeMove = true
 
-[node name="WeaponAkimbo" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
+[node name="Sprites" type="Node2D" parent="CanvasGroup"]
+script = ExtResource("5_ervay")
+
+[node name="Body" type="Sprite2D" parent="CanvasGroup/Sprites"]
+texture = ExtResource("6_lp472")
+hframes = 2
+vframes = 4
+frame = 3
+
+[node name="Left" type="RemoteTransform2D" parent="CanvasGroup/Sprites/Body"]
+position = Vector2(-15, 0)
+remote_path = NodePath("../../LeftBicept")
+update_rotation = false
+update_scale = false
+
+[node name="Right" type="RemoteTransform2D" parent="CanvasGroup/Sprites/Body"]
+position = Vector2(15, 0)
+remote_path = NodePath("../../RightBicept")
+update_rotation = false
+update_scale = false
+
+[node name="LeftBicept" type="Sprite2D" parent="CanvasGroup/Sprites"]
+position = Vector2(-15, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(-13, 0)
+hframes = 2
+vframes = 8
+frame = 2
+
+[node name="Forearm" type="RemoteTransform2D" parent="CanvasGroup/Sprites/LeftBicept"]
+position = Vector2(-26, 0)
+remote_path = NodePath("../../LeftForearm")
+update_rotation = false
+
+[node name="LeftForearm" type="Sprite2D" parent="CanvasGroup/Sprites"]
+position = Vector2(-41, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(-13, 0)
+hframes = 2
+vframes = 8
+
+[node name="LHandOffset" type="Node2D" parent="CanvasGroup/Sprites"]
+
+[node name="LeftHand" type="Sprite2D" parent="CanvasGroup/Sprites/LHandOffset"]
+position = Vector2(-67, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(0, -3)
+flip_h = true
+hframes = 4
+vframes = 8
+frame = 16
+
+[node name="LeftTranform" type="RemoteTransform2D" parent="CanvasGroup/Sprites/LHandOffset/LeftHand"]
+remote_path = NodePath("../../../../Weapon")
+update_position = false
+update_rotation = false
+update_scale = false
+
+[node name="RightBicept" type="Sprite2D" parent="CanvasGroup/Sprites"]
+position = Vector2(15, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(13, 0)
+hframes = 2
+vframes = 8
+frame = 3
+
+[node name="Forearm" type="RemoteTransform2D" parent="CanvasGroup/Sprites/RightBicept"]
+position = Vector2(26, 0)
+remote_path = NodePath("../../RightForearm")
+update_rotation = false
+
+[node name="RightForearm" type="Sprite2D" parent="CanvasGroup/Sprites"]
+position = Vector2(41, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(13, 0)
+hframes = 2
+vframes = 8
+frame = 1
+
+[node name="RHandOffset" type="Node2D" parent="CanvasGroup/Sprites"]
+
+[node name="RightHand" type="Sprite2D" parent="CanvasGroup/Sprites/RHandOffset"]
+position = Vector2(67, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(0, -3)
+hframes = 4
+vframes = 8
+frame = 16
+
+[node name="RightTranform" type="RemoteTransform2D" parent="CanvasGroup/Sprites/RHandOffset/RightHand"]
+remote_path = NodePath("../../../../Weapon")
+update_scale = false
+
+[node name="Head" type="Sprite2D" parent="CanvasGroup/Sprites"]
+z_index = 1
+texture = ExtResource("6_lp472")
 flip_v = true
+hframes = 2
+vframes = 4
+frame = 2
 
-[node name="LBody" type="AnimatedSprite2D" parent="."]
+[node name="Weapon" type="Node2D" parent="CanvasGroup"]
+position = Vector2(67, 0)
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_5vvl4")
-animation = &"Idle"
-offset = Vector2(12, 0)
+script = ExtResource("7_ygags")
+weapon = ExtResource("8_j5r5q")
 
-[node name="RBody" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_lba48")
-animation = &"Idle"
-offset = Vector2(12, 0)
+[node name="WeaponSway" type="Node2D" parent="CanvasGroup/Weapon"]
 
-[node name="Head" type="AnimatedSprite2D" parent="."]
-z_index = 2
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_ymik2")
-animation = &"Head"
-offset = Vector2(12, 0)
+[node name="WeaponOffset" type="Node2D" parent="CanvasGroup/Weapon/WeaponSway"]
+
+[node name="Attachments" type="Node2D" parent="CanvasGroup/Weapon/WeaponSway/WeaponOffset"]
+metadata/_edit_lock_ = true
+
+[node name="Weapon" type="Sprite2D" parent="CanvasGroup/Weapon/WeaponSway/WeaponOffset"]
+metadata/_edit_lock_ = true
+
+[node name="LeftHand" type="RemoteTransform2D" parent="CanvasGroup/Weapon"]
+remote_path = NodePath("../../Sprites/LHandOffset/LeftHand")
+update_position = false
+update_rotation = false
+update_scale = false
+
+[node name="RightHand" type="RemoteTransform2D" parent="CanvasGroup/Weapon"]
+remote_path = NodePath("../../Sprites/RHandOffset/RightHand")
+update_position = false
+update_rotation = false
+update_scale = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_n3qo7")
+}
+script = ExtResource("8_ilhod")
 
 [node name="Interaction Area" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8it3u")
@@ -253,10 +318,13 @@ collision_layer = 16
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_4uopn")
 
 [node name="Camera" type="Camera2D" parent="."]
 process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 drag_left_margin = 0.02
 drag_top_margin = 0.02
 drag_right_margin = 0.02

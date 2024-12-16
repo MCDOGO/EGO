@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ywqytdu3x5er"
-path="res://.godot/imported/SilencedPistol.png-ae349da176aef092f2195a1eff4c29a3.ctex"
+uid="uid://diwssmt5v3j5q"
+path="res://.godot/imported/Magazine.png-63b2ff47e13d08f5bb2759f322c81663.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Weapons/Single Handed/SilencedPistol.png"
-dest_files=["res://.godot/imported/SilencedPistol.png-ae349da176aef092f2195a1eff4c29a3.ctex"]
+source_file="res://Assets/Weapons/Two Handed/M4-AR/Magazine.png"
+dest_files=["res://.godot/imported/Magazine.png-63b2ff47e13d08f5bb2759f322c81663.ctex"]
 
 [params]
 

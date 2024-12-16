@@ -1,0 +1,179 @@
+[gd_scene load_steps=12 format=3 uid="uid://6o3tcdqrf4og"]
+
+[ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_ydrnv"]
+[ext_resource type="Resource" uid="uid://chweqb2qofr4n" path="res://Resources/(Not Finished)/M4A4.tres" id="2_5od3v"]
+[ext_resource type="Shader" path="res://Scenes/Test/RemoteTransformTest.gdshader" id="4_eiyvw"]
+[ext_resource type="Script" path="res://Scenes/Player/canvas_group.gd" id="5_86qsm"]
+[ext_resource type="Script" path="res://Scenes/Test/sprites.gd" id="5_ervay"]
+[ext_resource type="Texture2D" uid="uid://ca4bippspm4k3" path="res://Assets/TestRig.png" id="6_lp472"]
+[ext_resource type="Script" path="res://Scenes/weapon.gd" id="7_ygags"]
+[ext_resource type="Resource" uid="uid://csnh6sevj4iau" path="res://Resources/Weapons/Heavy Weapons/Two Handed/Betsy.tres" id="8_j5r5q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eyr1j"]
+shader = ExtResource("4_eiyvw")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/width = 1.7
+shader_parameter/pattern = 2
+shader_parameter/inside = false
+shader_parameter/add_margins = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8it3u"]
+radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4uopn"]
+size = Vector2(30, 16)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 512
+motion_mode = 1
+script = ExtResource("1_ydrnv")
+weaponOveride = ExtResource("2_5od3v")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+material = SubResource("ShaderMaterial_eyr1j")
+use_mipmaps = true
+script = ExtResource("5_86qsm")
+texture = "res://Assets/TestRig.png"
+weapon = ExtResource("8_j5r5q")
+
+[node name="Sprites" type="Node2D" parent="CanvasGroup"]
+script = ExtResource("5_ervay")
+
+[node name="Body" type="Sprite2D" parent="CanvasGroup/Sprites"]
+texture = ExtResource("6_lp472")
+hframes = 2
+vframes = 4
+frame = 3
+
+[node name="Left" type="RemoteTransform2D" parent="CanvasGroup/Sprites/Body"]
+position = Vector2(-15, 0)
+remote_path = NodePath("../../LeftBicept")
+update_rotation = false
+update_scale = false
+
+[node name="Right" type="RemoteTransform2D" parent="CanvasGroup/Sprites/Body"]
+position = Vector2(15, 0)
+remote_path = NodePath("../../RightBicept")
+update_rotation = false
+update_scale = false
+
+[node name="LeftBicept" type="Sprite2D" parent="CanvasGroup/Sprites"]
+position = Vector2(-15, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(-13, 0)
+hframes = 2
+vframes = 8
+frame = 2
+
+[node name="Forearm" type="RemoteTransform2D" parent="CanvasGroup/Sprites/LeftBicept"]
+position = Vector2(-26, 0)
+remote_path = NodePath("../../LeftForearm")
+update_rotation = false
+
+[node name="LeftForearm" type="Sprite2D" parent="CanvasGroup/Sprites"]
+position = Vector2(-41, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(-13, 0)
+hframes = 2
+vframes = 8
+
+[node name="LeftHand" type="Sprite2D" parent="CanvasGroup/Sprites"]
+position = Vector2(-67, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(0, -3)
+flip_h = true
+hframes = 4
+vframes = 8
+frame = 16
+
+[node name="RightBicept" type="Sprite2D" parent="CanvasGroup/Sprites"]
+position = Vector2(15, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(13, 0)
+hframes = 2
+vframes = 8
+frame = 3
+
+[node name="Forearm" type="RemoteTransform2D" parent="CanvasGroup/Sprites/RightBicept"]
+position = Vector2(26, 0)
+remote_path = NodePath("../../RightForearm")
+update_rotation = false
+
+[node name="RightForearm" type="Sprite2D" parent="CanvasGroup/Sprites"]
+position = Vector2(41, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(13, 0)
+hframes = 2
+vframes = 8
+frame = 1
+
+[node name="RightHand" type="Sprite2D" parent="CanvasGroup/Sprites"]
+position = Vector2(67, 0)
+texture = ExtResource("6_lp472")
+offset = Vector2(0, -3)
+hframes = 4
+vframes = 8
+frame = 16
+
+[node name="Head" type="Sprite2D" parent="CanvasGroup/Sprites"]
+z_index = 1
+texture = ExtResource("6_lp472")
+flip_v = true
+hframes = 2
+vframes = 4
+frame = 2
+
+[node name="Weapon" type="Node2D" parent="CanvasGroup"]
+position = Vector2(0, -5)
+scale = Vector2(2, 2)
+script = ExtResource("7_ygags")
+weapon = ExtResource("8_j5r5q")
+gunPosLockLeft = null
+gunPosLockRight = null
+
+[node name="Attachments" type="Node2D" parent="CanvasGroup/Weapon"]
+metadata/_edit_lock_ = true
+
+[node name="Weapon" type="Sprite2D" parent="CanvasGroup/Weapon"]
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Interaction Area" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8it3u")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_4uopn")
+
+[node name="Camera" type="Camera2D" parent="."]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_left_margin = 0.02
+drag_top_margin = 0.02
+drag_right_margin = 0.02
+drag_bottom_margin = 0.02
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="Fire Rate Refresh" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true
+
+[node name="Reload Speed" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="Swinging Speed" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="Attacking" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="Effects" type="Node" parent="."]
+
+[connection signal="timeout" from="Timers/Reload Speed" to="." method="_on_reload_speed_timeout"]

@@ -1,19 +1,26 @@
 [gd_scene load_steps=3 format=3 uid="uid://bs6doa450qfbv"]
 
 [ext_resource type="Script" path="res://Scenes/weapon.gd" id="1_h30bf"]
-[ext_resource type="Resource" uid="uid://csnh6sevj4iau" path="res://Resources/Weapons/Heavy Weapons/Two Handed/Betsy.tres" id="2_4n6p5"]
+[ext_resource type="Resource" uid="uid://chweqb2qofr4n" path="res://Resources/(Not Finished)/M4A4.tres" id="2_voq3l"]
 
 [node name="Weapon" type="Node2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_h30bf")
-weapon = ExtResource("2_4n6p5")
+weapon = ExtResource("2_voq3l")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -99
-offset_left = -21.0
-offset_top = -40.5
-offset_right = 19.0
-offset_bottom = 39.5
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Attachments" type="Node2D" parent="."]
 
@@ -27,3 +34,29 @@ points = PackedVector2Array(-20, 0, 20, 0)
 closed = true
 width = 0.1
 default_color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+z_index = 100
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -0.5
+offset_top = -1.0
+offset_right = 0.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(1, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 0.5
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)

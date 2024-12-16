@@ -8,7 +8,7 @@ class_name Weapon_Attachment
 @export var name: String ## Check script for potential names
 """ "load" for the chamberer, 
 "top" for either the top part of a gun that moves, or the upper part of a gun that cracks, 
-"crack" for the part that is revealed by a crach, 
+"crack" for the part that is revealed by a crack, 
 "chmb" for the moving bit of the chamber
 """
 
