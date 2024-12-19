@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ca4bippspm4k3" path="res://Assets/TestRig.png" id="1_j8oaq"]
 [ext_resource type="Script" path="res://Scenes/Test/remote_transform_test.gd" id="1_m6abx"]
 [ext_resource type="Script" path="res://Scenes/Test/sprites.gd" id="2_2uo3p"]
-[ext_resource type="Resource" uid="uid://csnh6sevj4iau" path="res://Resources/Weapons/Heavy Weapons/Two Handed/Betsy.tres" id="2_s0bqr"]
+[ext_resource type="Resource" uid="uid://csnh6sevj4iau" path="res://Resources/(Not Finished)/Betsy.tres" id="2_s0bqr"]
 [ext_resource type="Shader" path="res://Scenes/Test/RemoteTransformTest.gdshader" id="3_4fhyf"]
 [ext_resource type="Script" path="res://Scenes/weapon.gd" id="6_sb6qo"]
 

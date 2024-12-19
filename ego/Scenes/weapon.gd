@@ -8,17 +8,6 @@ var thing : Weapon_Gun
 var sorted_nodes : Array[Sprite2D]
 
 
-func _process(delta: float):
-	
-	if(gunPosLockRight):
-		position = ($"../Sprites/RHandOffset/RightHand".position * 2) + weapon.sprite_positioning
-		rotation = $"../Sprites/RHandOffset/RightHand".rotation - offsetRotation
-		pass
-	else:
-		position = ($"../Sprites/LHandOffset/LeftHand".position * 2) + weapon.sprite_positioning
-		rotation = $"../Sprites/LHandOffset/LeftHand".rotation - offsetRotation
-	
-
 func set_up():
 	
 	changeOffset(gunPosLockRight, true)
@@ -71,11 +60,23 @@ var offsetRotation: float
 ## hand: true for right, false for left
 func changeOffset(hand: bool, lockOther: bool):
 	
-	if(lockOther):
-		if(hand):
-			$RightHand.update_position = true
-			$RightHand.update_rotation = true
-		else:
+
+	if(hand):
+		$WeaponSway/WeaponOffset.position = -(weapon.rightHandRest /2) ## Change from rest to variable offset
+		$RightHand.update_position = false
+		$RightHand.update_rotation = false
+		
+		if(lockOther):
 			$LeftHand.update_position = true
-			$LeftHand.update_rotation = true
-	
+			$LeftHand.update_rotation = false
+			$LeftHand.position = (weapon.leftHandRest /2) - (weapon.rightHandRest /2) ## Change from rest to variable offset
+		
+	else:
+		$WeaponSway/WeaponOffset.position = -(weapon.leftHandRest /2) ## Change from rest to variable offset
+		$LeftHand.update_position = false
+		$LeftHand.update_rotation = false
+		
+		if(lockOther):
+			$RightHand.update_position = true
+			$RightHand.update_rotation = false
+			$RightHand.position = (weapon.rightHandRest /2) - (weapon.leftHandRest /2) ## Change from rest to variable offset
